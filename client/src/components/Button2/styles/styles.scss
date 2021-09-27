@@ -1,0 +1,22 @@
+.buttons{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.button-small{
+    color: white;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+
+    .button-icon{
+        font-size: 15px;
+    }
+}

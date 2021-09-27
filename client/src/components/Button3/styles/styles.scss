@@ -1,0 +1,19 @@
+.button-2{
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+    transition: all 0.1s;
+    .button-text{
+        color: black !important;
+        font-weight: 500 !important;
+    }
+    .button-icon{
+        color: blue !important;
+    }
+}
+
+.button-2:hover{
+    box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.2);
+}
+
+.button-2:active{
+    background: rgb(245, 245, 245);
+}

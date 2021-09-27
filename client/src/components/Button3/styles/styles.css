@@ -1,0 +1,25 @@
+.button-2 {
+  -webkit-box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+  -webkit-transition: all 0.1s;
+  transition: all 0.1s;
+}
+
+.button-2 .button-text {
+  color: black !important;
+  font-weight: 500 !important;
+}
+
+.button-2 .button-icon {
+  color: blue !important;
+}
+
+.button-2:hover {
+  -webkit-box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.2);
+}
+
+.button-2:active {
+  background: whitesmoke;
+}
+/*# sourceMappingURL=styles.css.map */
