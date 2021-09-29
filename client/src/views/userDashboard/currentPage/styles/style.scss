@@ -1,0 +1,24 @@
+.user-dashboard-main{
+    padding: 40px;
+    margin-right: 190px;
+}
+
+.user-upper{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+
+.user-search-bar{
+    display: flex;
+    background: white;
+    padding: 5px 15px;
+    border-radius: 30px;
+    align-items: center;
+    input{
+        outline: none;
+        border: none;
+        margin-right: 2px;
+    }
+}

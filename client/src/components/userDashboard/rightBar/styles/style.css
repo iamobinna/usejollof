@@ -1,1 +1,125 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+.user-right-bar {
+  position: fixed;
+  right: 40px;
+  top: 0;
+  background: white;
+  height: 100vh;
+  padding: 40px 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 40px;
+}
+
+.user-right-bar-section h5 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 5px;
+          column-gap: 5px;
+}
+
+.wish-item, .favorite-hotel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100px;
+}
+
+.wish-item span, .favorite-hotel span {
+  font-size: 10px;
+}
+
+.notification {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
+  width: 100px;
+}
+
+.notification p {
+  font-size: 10px;
+}
+
+.notification-col-2 h6 {
+  margin-bottom: 2px;
+}
+
+.notifications, .RBList {
+  margin: 20px 0;
+  row-gap: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  max-height: 180px;
+  overflow-y: scroll;
+}
+
+.notifications::-webkit-scrollbar {
+  opacity: 0.2;
+  width: 3px;
+  /* width of the entire scrollbar */
+}
+
+.notifications:hover.notifications::-webkit-scrollbar {
+  width: 8px;
+  /* width of the entire scrollbar */
+}
+
+.notifications::-webkit-scrollbar-track {
+  background: #e4e4e4;
+  /* color of the tracking area */
+}
+
+.notifications::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  background-color: #949494;
+  /* color of the scroll thumb */
+}
+
+.RBList::-webkit-scrollbar {
+  opacity: 0.2;
+  width: 3px;
+  /* width of the entire scrollbar */
+}
+
+.RBList:hover.notifications::-webkit-scrollbar {
+  width: 8px;
+  /* width of the entire scrollbar */
+}
+
+.RBList::-webkit-scrollbar-track {
+  background: #e4e4e4;
+  /* color of the tracking area */
+}
+
+.RBList::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  background-color: #949494;
+  /* color of the scroll thumb */
+}
+/*# sourceMappingURL=style.css.map */

@@ -2,8 +2,8 @@ import './styles/style.css';
 
 const Index = () => {
     return (
-        <div>
-            <h2>Home</h2>
+        <div className="user-home">
+            
         </div>
     )
 }

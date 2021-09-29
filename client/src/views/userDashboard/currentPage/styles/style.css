@@ -1,0 +1,36 @@
+.user-dashboard-main {
+  padding: 40px;
+  margin-right: 190px;
+}
+
+.user-upper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.user-search-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: white;
+  padding: 5px 15px;
+  border-radius: 30px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.user-search-bar input {
+  outline: none;
+  border: none;
+  margin-right: 2px;
+}
+/*# sourceMappingURL=style.css.map */

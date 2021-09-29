@@ -1,0 +1,95 @@
+$grey: rgb(228, 228, 228);
+$darkGrey: rgb(148, 148, 148);
+
+.user-right-bar {
+    position: fixed;
+    right: 40px;
+    top: 0;
+    background: white;
+    height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+}
+
+.user-right-bar-section{
+    h5{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        column-gap: 5px;
+    }
+}
+
+.wish-item, .favorite-hotel{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    span{
+        font-size: 10px;
+    }
+    width: 100px;
+}
+
+.notification {
+    display: flex;
+    column-gap: 10px;
+    width: 100px;
+    p {
+        font-size: 10px;
+    }
+}
+
+.notification-col-2 {
+    h6 {
+        margin-bottom: 2px;
+    }
+}
+
+.notifications, .RBList {
+    margin: 20px 0;
+    row-gap: 10px;
+    display: flex;
+    flex-direction: column;
+    max-height: 180px;
+    overflow-y: scroll;
+}
+
+.notifications::-webkit-scrollbar {
+    opacity: 0.2;
+    width: 3px; /* width of the entire scrollbar */
+}
+
+.notifications:hover.notifications::-webkit-scrollbar{
+    width: 8px; /* width of the entire scrollbar */
+}
+
+.notifications::-webkit-scrollbar-track {
+    background: $grey; /* color of the tracking area */
+}
+
+.notifications::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    background-color: $darkGrey; /* color of the scroll thumb */
+}
+
+.RBList::-webkit-scrollbar {
+    opacity: 0.2;
+    width: 3px; /* width of the entire scrollbar */
+}
+
+.RBList:hover.notifications::-webkit-scrollbar{
+    width: 8px; /* width of the entire scrollbar */
+}
+
+.RBList::-webkit-scrollbar-track {
+    background: $grey; /* color of the tracking area */
+}
+
+.RBList::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    background-color: $darkGrey; /* color of the scroll thumb */
+}

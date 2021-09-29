@@ -1,3 +1,18 @@
+$lightGrey: rgb(246, 246, 246);
+
 .user-dashboard-container{
     margin-left: 54px;
+    background: $lightGrey;
+}
+
+.user-dashboard-main{
+    max-width: 1400px;
+    min-height: 100vh;
+    margin: auto;
+}
+
+.box{
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
 }
