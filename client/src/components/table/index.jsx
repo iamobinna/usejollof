@@ -7,18 +7,18 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
-const Index = () => {
-    const columns = [
-        {id: 'name', label: 'Name'},
-        {id: 'fullName', label: 'Full Name'},
-    ];
+const Index = ({columns, rows, Action}) => {
+    // const columns = [
+    //     {id: 'name', label: 'Name'},
+    //     {id: 'fullName', label: 'Full Name'},
+    // ];
 
-    const rows = [
-        {name: 'Fahad', fullName: 'Shah Fahad'},
-        {name: 'Feroz', fullName: 'Shah Feroz'},
-        {name: 'Faisal', fullName: 'Shah Faisal'},
-        {name: 'Khan', fullName: 'Shah Khan'},
-    ]
+    // const rows = [
+    //     {name: 'Fahad', fullName: 'Shah Fahad'},
+    //     {name: 'Feroz', fullName: 'Shah Feroz'},
+    //     {name: 'Faisal', fullName: 'Shah Faisal'},
+    //     {name: 'Khan', fullName: 'Shah Khan'},
+    // ];
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -36,7 +36,7 @@ const Index = () => {
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                         <TableRow>
-                        {columns.map((column) => (
+                        {columns?.map((column) => (
                             <TableCell
                             key={column.id}
                             align={column.align}
@@ -54,11 +54,13 @@ const Index = () => {
                     </TableHead>
                     <TableBody>
                         {rows
-                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map((row) => {
                             return (
                             <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                                 {columns.map((column) => {
+                                if(column.id === 'action')
+                                return <Action/>
                                 const value = row[column.id];
                                 return (
                                     <TableCell key={column.id} align={column.align} style={{
@@ -80,7 +82,7 @@ const Index = () => {
             <TablePagination
                 rowsPerPageOptions={[10, 25, 100]}
                 component="div"
-                count={rows.length}
+                count={rows?.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}
