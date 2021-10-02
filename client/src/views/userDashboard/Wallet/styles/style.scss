@@ -5,6 +5,7 @@
     max-width: 180px;
     min-width: 170px;
     row-gap: 10px;
+    cursor: pointer;
     flex: 1;
     background: white;
     h5{
@@ -21,4 +22,15 @@
     flex-wrap: wrap;
     column-gap: 20px;
     row-gap: 20px;
+}
+
+.user-current-amount{
+    svg{
+        color: green;
+    }
+}
+.user-add-amount{
+    svg{
+        color: blue;
+    }
 }

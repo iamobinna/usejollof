@@ -7,20 +7,9 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
-const Index = ({columns, rows, Action}) => {
-    // const columns = [
-    //     {id: 'name', label: 'Name'},
-    //     {id: 'fullName', label: 'Full Name'},
-    // ];
-
-    // const rows = [
-    //     {name: 'Fahad', fullName: 'Shah Fahad'},
-    //     {name: 'Feroz', fullName: 'Shah Feroz'},
-    //     {name: 'Faisal', fullName: 'Shah Faisal'},
-    //     {name: 'Khan', fullName: 'Shah Khan'},
-    // ];
+const Index = ({columns, rows, clickHandler, customRows}) => {
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rowsPerPage, setRowsPerPage] = React.useState(customRows? customRows: 10);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -57,10 +46,8 @@ const Index = ({columns, rows, Action}) => {
                         ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map((row) => {
                             return (
-                            <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                            <TableRow hover role="checkbox" tabIndex={-1} key={row.code} onClick={() => clickHandler(row.id)} >
                                 {columns.map((column) => {
-                                if(column.id === 'action')
-                                return <Action/>
                                 const value = row[column.id];
                                 return (
                                     <TableCell key={column.id} align={column.align} style={{

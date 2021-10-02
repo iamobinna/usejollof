@@ -18,8 +18,8 @@ const Index = ({currentIndex}) => {
         {id: 3, component: Addresses, name: 'Manage Addresses',  to: '/manage-address' },
         {id: 4, component: Schedule, name: 'Schedule',  to: '/ongoing-orders' },
         {id: 5, component: History, name: 'History',  to: '/history' },
-        {id: 6, component: Share, name: 'Share',  to: '/share-friend' },
-        {id: 7, component: Settings, name: 'Settings', to: '/settings' },
+        // {id: 6, component: Share, name: 'Share',  to: '/share-friend' },
+        {id: 6, component: Settings, name: 'Settings', to: '/settings' },
     ];
 
     return (

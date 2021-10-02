@@ -1,3 +1,67 @@
-.dashboard-tab{
-    // padding: 40px;
+$grey: rgb(228, 228, 228);
+$darkGrey: rgb(148, 148, 148);
+
+.user-home-body{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
+.user-home-line{
+    padding: 25px;
+    max-width: 450px;
+}
+
+.user-home-row{
+    display: flex;
+    column-gap: 10px;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    width: 100%;
+}
+
+.ongoing-tasks-temp{
+    display: flex;
+    padding-top: 10px;
+    padding-right: 10px;
+    flex-direction: column;
+    column-gap: 20px;
+    row-gap: 20px;
+    max-height: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.test-task{
+    width: 200px;
+    color: white;
+    border-radius: 20px;
+    padding: 40px;
+    // margin: 0 10px;
+}
+
+.d1{
+    background: linear-gradient(to right bottom, rgb(28, 152, 209), blue);
+}
+.d2{
+    background: linear-gradient(to right, #ee560f, #ff0458);
+}
+
+.ongoing-tasks-temp::-webkit-scrollbar {
+    opacity: 0.2;
+    width: 3px; /* width of the entire scrollbar */
+}
+
+.ongoing-tasks-temp:hover.ongoing-tasks-temp::-webkit-scrollbar{
+    width: 8px; /* width of the entire scrollbar */
+}
+
+.ongoing-tasks-temp::-webkit-scrollbar-track {
+    background: $grey; /* color of the tracking area */
+}
+.ongoing-tasks-temp::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    background-color: $darkGrey; /* color of the scroll thumb */
 }

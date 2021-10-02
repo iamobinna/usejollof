@@ -1,1 +1,88 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+.user-home-body {
+  margin-top: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  row-gap: 20px;
+}
+
+.user-home-line {
+  padding: 25px;
+  max-width: 450px;
+}
+
+.user-home-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  row-gap: 20px;
+  width: 100%;
+}
+
+.ongoing-tasks-temp {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-top: 10px;
+  padding-right: 10px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  row-gap: 20px;
+  max-height: 250px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.test-task {
+  width: 200px;
+  color: white;
+  border-radius: 20px;
+  padding: 40px;
+}
+
+.d1 {
+  background: -webkit-gradient(linear, left top, right bottom, from(#1c98d1), to(blue));
+  background: linear-gradient(to right bottom, #1c98d1, blue);
+}
+
+.d2 {
+  background: -webkit-gradient(linear, left top, right top, from(#ee560f), to(#ff0458));
+  background: linear-gradient(to right, #ee560f, #ff0458);
+}
+
+.ongoing-tasks-temp::-webkit-scrollbar {
+  opacity: 0.2;
+  width: 3px;
+  /* width of the entire scrollbar */
+}
+
+.ongoing-tasks-temp:hover.ongoing-tasks-temp::-webkit-scrollbar {
+  width: 8px;
+  /* width of the entire scrollbar */
+}
+
+.ongoing-tasks-temp::-webkit-scrollbar-track {
+  background: #e4e4e4;
+  /* color of the tracking area */
+}
+
+.ongoing-tasks-temp::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  background-color: #949494;
+  /* color of the scroll thumb */
+}
+/*# sourceMappingURL=style.css.map */

@@ -1,1 +1,12 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+.user-setting span {
+  font-size: 14px;
+}
+
+.user-setting .switch {
+  margin: 30px 0;
+}
+
+.user-setting .s1 {
+  margin: -30px 0;
+}
+/*# sourceMappingURL=style.css.map */
