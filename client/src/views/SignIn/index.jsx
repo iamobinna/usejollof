@@ -5,7 +5,7 @@ import signinIllustration from "../../static/svgs/signin.svg";
 import TextField from '@mui/material/TextField'
 // import {useDispatch} from 'react-redux';
 // import {useHistory, Redirect} from 'react-router-dom';
-import MovieIcon from '@mui/icons-material/Movie';
+import FoodBankIcon from '@mui/icons-material/FoodBank';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import avatar from '../../static/images/avatar.jpg';
 import Alert from "@mui/material/Alert";
@@ -68,8 +68,7 @@ const Index = () => {
                         <div className={`circle ${signUp && "circle-2"}`}></div>
                         <div className="col1">
                             <div className="logo">
-                                We-Video{" "}
-                                <MovieIcon style={{ fontSize: "30px" }} />{" "}
+                                We-Deliver<FoodBankIcon style={{ fontSize: "30px" }} />{" "}
                             </div>
                             <img src={signinIllustration} alt="" />
                             <p>Where the world meets, to inspire!</p>

@@ -1,0 +1,37 @@
+.flex{
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.vendor-coupon{
+    column-gap: 20px;
+    padding: 7px 30px;
+    flex-wrap: wrap;
+    row-gap: 5px;
+    position: relative;
+    padding-right: 60px;
+}
+
+.vendor-coupons{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin-bottom: 40px;
+}
+
+.close-btn-2{
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.close-btn-3{
+    right: 40px;
+    color: green;
+}
+
+.vendor-deals{
+    margin-top: 10px;
+}

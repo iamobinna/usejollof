@@ -2,9 +2,6 @@ import './styles/style.css';
 import Table from '../../../components/table';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShareIcon from '@mui/icons-material/Share';
-import Button1 from '../../../components/Button1';
-import Button2 from '../../../components/Button2';
-import Button3 from '../../../components/Button3';
 import CancelIcon from '@mui/icons-material/Cancel';
 import {useState} from 'react';
 

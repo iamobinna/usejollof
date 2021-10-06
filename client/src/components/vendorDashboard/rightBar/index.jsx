@@ -94,7 +94,7 @@ const Index = () => {
 
             <div className='button button-2' style={{justifyContent: 'space-between'}}>
                 <h4 className="button-text">Coupon</h4>
-                <ConfirmationNumberIcon className='button-icon' />
+                <ConfirmationNumberIcon style={{color: 'blue'}} className='button-icon' />
             </div>
         </div>
     );

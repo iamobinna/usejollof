@@ -1,12 +1,10 @@
 .button-2{
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
     transition: all 0.1s;
+    background: white;
     .button-text{
         color: black !important;
         font-weight: 500 !important;
-    }
-    .button-icon{
-        color: blue !important;
     }
 }
 

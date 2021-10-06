@@ -1,0 +1,78 @@
+.vendor-store-upper{
+    display: flex;
+    row-gap: 20px;
+    column-gap: 20px;
+    flex-wrap: wrap;
+}
+
+.vendor-store-image{
+    width: 200px;
+    height: 200px;
+}
+
+.vendor-store-details{
+    display: flex;
+    column-gap: 20px;
+    color: white;
+    background: linear-gradient(to right bottom, rgb(28, 152, 209), blue);
+}
+
+.vendor-store-col1{
+    display: flex;
+    row-gap: 10px;
+    flex-direction: column;
+    span{
+        font-size: 13px;
+        max-width: 200px;
+    }
+    h5{
+        display: flex;
+        align-items: center;
+        column-gap: 5px;
+            svg{
+                font-size: 15px;
+            }
+    }
+}
+
+.vendor-store-branches{
+    h3{
+        margin: 40px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 500px;
+    }
+}
+
+.vendor-store-branch{
+    display: flex;
+    // align-items: center;
+    // flex-wrap: wrap;
+    column-gap: 20px;
+    width: fit-content;
+    color: white;
+    background: linear-gradient(to right, #ee560f, #ff0458);
+}
+
+.vendor-store-branch-image{
+    min-width: 150px !important;
+    min-height: 150px;
+    width: 150px !important;
+    height: 150px;
+    margin: -20px;
+    margin-left: 0;
+    align-self: center;
+}
+
+.vendor-store-btn{
+    background: white;
+    svg{
+        color: #ff0458;
+    }
+}
+
+.vendor-store-add-branch{
+    row-gap: 10px !important;
+    margin: 10px 0;
+}

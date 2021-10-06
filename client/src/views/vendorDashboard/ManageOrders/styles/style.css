@@ -1,1 +1,12 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+.vendor-order-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
+}
+
+.vendor-orders h3 {
+  margin-bottom: 20px;
+}
+/*# sourceMappingURL=style.css.map */

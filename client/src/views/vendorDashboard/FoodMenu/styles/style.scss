@@ -1,0 +1,65 @@
+.asd{
+    background: white !important;
+    color: black !important;
+}
+
+.delete-btn{
+    background: red;
+    z-index: 0;
+}
+
+.detail-btn{
+    z-index: 0;
+    background: green;
+}
+
+.button{
+    h4, svg{
+        position: relative;
+        z-index: 1;
+        color: white !important;
+    }
+}
+
+.vendor-food-btns{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    width: fit-content;
+}
+
+.vendor-food-img{
+    top: -50px;
+    left: -70px;
+    width: 170px;
+    height: 170px;
+    position: absolute;
+}
+
+.vendor-menu-item{
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background: white;
+    border-radius: 20px;
+}
+
+.food-3-image{
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.food-3-images{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.vendor-menu-add-btn{
+    width: fit-content;
+    margin: 10px 0;
+    margin-bottom: 40px;
+}

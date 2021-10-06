@@ -12,7 +12,7 @@ const Index = ({imageSrc}) => {
     }
 
     return (
-        <img onLoad={onImageLoad} className={ (heigth > width)?'image-in-container-height': 'image-in-container-width'} src={imageSrc} alt="" />
+        <img onLoad={onImageLoad} className={ (heigth < width)?'image-in-container-height': 'image-in-container-width'} src={imageSrc} alt="" />
     )
 }
 

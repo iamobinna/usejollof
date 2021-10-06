@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
-const Index = ({columns, rows, clickHandler, customRows}) => {
+const Index = ({columns, rows, clickHandler, customRows, noHover, Action, setRows}) => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(customRows? customRows: 10);
 
@@ -44,11 +44,22 @@ const Index = ({columns, rows, clickHandler, customRows}) => {
                     <TableBody>
                         {rows
                         ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        .map((row) => {
+                        .map((row, index) => {
                             return (
-                            <TableRow hover role="checkbox" tabIndex={-1} key={row.code} onClick={() => clickHandler(row.id)} >
+                            <TableRow hover = {noHover? false : true} role="checkbox" tabIndex={-1} key={row.code} onClick={() => clickHandler && clickHandler(row.id, index)} >
                                 {columns.map((column) => {
                                 const value = row[column.id];
+                                if(Action)
+                                {
+                                    if(column.id === 'action')
+                                    {
+                                        return(
+                                            <TableCell>
+                                                <Action id={{id: row.id, index}}/>
+                                            </TableCell>
+                                        )
+                                    }
+                                }
                                 return (
                                     <TableCell key={column.id} align={column.align} style={{
                                         width: 'fit-content',
