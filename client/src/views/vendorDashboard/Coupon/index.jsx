@@ -4,13 +4,20 @@ import InputMask from 'react-input-mask';
 import TextField from '@mui/material/TextField';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
-import DetailsIcon from '@mui/icons-material/Details';
 import DateAdapter from '@mui/lab/AdapterMoment';
 import ShareIcon from '@mui/icons-material/Share';
 import CancelIcon from '@mui/icons-material/Cancel';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+import ImageInContainer from '../../../components/imageInContainer';
+import Burger from '../../../static/images/burger.jpeg';
 
 const AddPopUp = ({add, setAdd}) => {
     
@@ -105,6 +112,131 @@ const AddPopUp = ({add, setAdd}) => {
     )
 }
 
+const DealPopUp = ({add, setAdd}) => {
+    
+    const [personName, setPersonName] = useState([]);
+    if(add === false)
+    {
+        return null;
+    }
+
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+    PaperProps: {
+        style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+        },
+    },
+    };
+
+    const names = [
+        'Oliver',
+        'Van',
+        'April',
+        'Ralph',
+        'Omar',
+        'Carlos',
+        'Miriam',
+        'Bradley',
+        'Virginia',
+        'Kelly',
+      ];
+
+    const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setPersonName(
+      // On autofill we get a the stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
+
+
+    return(
+        <div className="pop-up-container">
+            <div className="pop-up box">
+                <CancelIcon className='close-btn' onClick = {() => setAdd(false)} />
+                <div className="pop-up-upper">
+                    <div className="pop-up-col1" style={{rowGap: '10px'}} >                        
+                        <TextField
+                            id="outlined-basic"
+                            inputProps={{
+                                style: { fontSize: 13},
+                            }}
+                            InputLabelProps={{
+                                style: { fontSize: 13 },
+                            }}
+                            size="small"
+                            label="discount"
+                            type="number"
+                            variant="outlined"
+                        />
+                        <LocalizationProvider dateAdapter={DateAdapter}>
+                        <DatePicker
+                            label="Valid till"
+                            InputProps={{
+                                style:{
+                                    fontSize: '13px'
+                                }
+                            }}
+                            renderInput={(params) => <TextField  size='small' {...params} />}
+                        />
+                        </LocalizationProvider>
+                        <FormControl>
+                            <InputLabel size='small' id="demo-multiple-checkbox-label">Food items</InputLabel>
+                            <Select
+                                labelId="demo-multiple-checkbox-label"
+                                id="demo-multiple-checkbox"
+                                multiple
+                                InputProps={{
+                                    style:{
+                                        fontSize: '13px'
+                                    }
+                                }}
+                                value={personName}
+                                onChange={handleChange}
+                                input={<OutlinedInput size='small'  label="Food items" />}
+                                renderValue={(selected) => selected.join(', ')}
+                                MenuProps={MenuProps}
+                                size='small'
+                            >
+                            {names.map((name) => (
+                                <MenuItem key={name} value={name}>
+                                    <Checkbox checked={personName.indexOf(name) > -1} />
+                                    <div className="vendor-coupon-menu-item flex">
+                                        <span>{name}</span>
+                                        <span>$ {50}</span>
+                                        <div className='box MU' style={{width: '40px', height: '40px'}} >
+                                            <ImageInContainer imageSrc={Burger} />
+                                        </div>
+                                    </div>
+                                    {/* <ListItemText primary={name} className='ListItemText'/> */}
+                                </MenuItem>
+                            ))}
+                            </Select>
+                        </FormControl>
+                    </div>
+                </div>
+                <div className="pop-up-buttons">
+                    <div className='button button-hover'>
+                        <div className="button-bg" style={{background: 'red', zIndex: '0'}} ></div>
+                        <h4 className="button-text" style={{position: 'relative'}}>Add</h4>
+                        <DeleteIcon className='button-icon' style={{position: 'relative'}}/>
+                    </div>
+                    <div className='button button-hover'>
+                        <div className="button-bg" style={{background: 'blue', zIndex: '0'}} ></div>
+                        <h4 className="button-text" style={{position: 'relative'}} >Edit</h4>
+                        <ShareIcon className='button-icon' style={{position: 'relative'}}/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
 
 const Index = () => {
 
@@ -122,10 +254,12 @@ const Index = () => {
     ]);
 
     const [add, setAdd] = useState(false);
+    const [dealPopUp, setDealPopUp] = useState(false);
 
     return (
         <div>
             <AddPopUp add={add} setAdd={setAdd} />
+            <DealPopUp add={dealPopUp} setAdd={setDealPopUp} />
             <h3>Coupons</h3>
             <div className='button button-hover fit' onClick={() => {setAdd(true)}}>
                 <div className="button-bg" style={{background: 'green', zIndex: '0'}} ></div>
@@ -158,7 +292,7 @@ const Index = () => {
             }
             </div>
             <h3>Deals / Promos</h3>
-            <div className='button button-hover fit'>
+            <div className='button button-hover fit' onClick={() => setDealPopUp(true)} >
                 <div className="button-bg" style={{background: 'purple', zIndex: '0'}} ></div>
                 <h4 className="button-text" style={{position: 'relative'}} >Add</h4>
                 <AddCircleIcon className='button-icon' style={{position: 'relative'}}/>
@@ -180,7 +314,7 @@ const Index = () => {
                                 <span>{deal.deadline}</span>
                             </div>
                             <CancelIcon className='close-btn close-btn-2' />
-                            <RemoveRedEyeIcon className='close-btn close-btn-2 close-btn-3' />
+                            <RemoveRedEyeIcon onClick={() => setDealPopUp(true)} className='close-btn close-btn-2 close-btn-3' />
                         </div>
                     ))}
                 </div>

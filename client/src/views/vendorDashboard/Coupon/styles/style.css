@@ -48,4 +48,11 @@
 .vendor-deals {
   margin-top: 10px;
 }
+
+.vendor-coupon-menu-item {
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
 /*# sourceMappingURL=style.css.map */
