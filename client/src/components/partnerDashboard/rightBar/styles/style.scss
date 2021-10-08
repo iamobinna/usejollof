@@ -1,0 +1,84 @@
+$grey: rgb(228, 228, 228);
+$darkGrey: rgb(148, 148, 148);
+
+.vendor-right-message{
+    svg{
+        color: rgb(255, 208, 0);
+    }
+    h5{
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        column-gap: 10px;
+    }
+}
+
+.vendor-right-inputs{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    // width: 100px;
+}
+
+.vendor-recent-order{
+    svg{
+        color: green;
+    }
+    h5{
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        column-gap: 10px;
+    }
+    .vendor-order-top{
+        width: 100%;
+        justify-content: space-between;
+        display: flex;
+    }
+}
+
+.os{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    span{
+        font-size: 11px;
+    }
+    max-height: 80px;
+    overflow-y: scroll;
+    padding-right: 10px;
+}
+
+.o1, .o2, .o3{
+    display: flex;
+    row-gap: 5px;
+    flex-direction: column;
+}
+
+.vB{
+    row-gap: 100px;
+}
+
+.os::-webkit-scrollbar {
+    opacity: 0.2;
+    width: 3px; /* width of the entire scrollbar */
+}
+
+.os:hover.os::-webkit-scrollbar{
+    width: 8px; /* width of the entire scrollbar */
+}
+
+.os::-webkit-scrollbar-track {
+    background: $grey; /* color of the tracking area */
+}
+
+.os::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    background-color: $darkGrey; /* color of the scroll thumb */
+}
+
+@media (min-width: 1100px){
+    .notification{
+        width: 140px;
+    }
+}

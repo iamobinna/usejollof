@@ -1,0 +1,48 @@
+$grey : rgb(228, 228, 228);
+$darkGrey : rgb(148, 148, 148);
+
+.user-left-bar{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background: $grey;
+    padding: 50px 0;
+    row-gap: 30px;
+}
+
+.left-bar-icon{
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 5px 20px;
+    position: relative;
+    opacity: 0.5;
+    filter: grayscale(1);
+}
+
+.left-bar-icon:hover .icon-bar{
+    opacity: 0.5;
+}
+
+.icon-bar{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 5px;
+    background: $grey;
+    opacity: 0;
+}
+
+.left-bar-icon-active{
+    opacity: 1;
+    filter: grayscale(0) !important;
+}
+
+.left-bar-icon-active > .icon-bar{
+    background: $darkGrey;
+    opacity: 1;
+}
+

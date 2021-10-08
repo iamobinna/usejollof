@@ -1,0 +1,19 @@
+.vendor-payquest-paragraph {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  row-gap: 10px;
+  max-width: 500px;
+}
+
+.revenue-card {
+  padding: 20px;
+}
+/*# sourceMappingURL=style.css.map */

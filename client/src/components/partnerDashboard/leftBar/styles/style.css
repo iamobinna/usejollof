@@ -1,0 +1,53 @@
+.user-left-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background: #e4e4e4;
+  padding: 50px 0;
+  row-gap: 30px;
+}
+
+.left-bar-icon {
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  padding: 5px 20px;
+  position: relative;
+  opacity: 0.5;
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+}
+
+.left-bar-icon:hover .icon-bar {
+  opacity: 0.5;
+}
+
+.icon-bar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  background: #e4e4e4;
+  opacity: 0;
+}
+
+.left-bar-icon-active {
+  opacity: 1;
+  -webkit-filter: grayscale(0) !important;
+          filter: grayscale(0) !important;
+}
+
+.left-bar-icon-active > .icon-bar {
+  background: #949494;
+  opacity: 1;
+}
+/*# sourceMappingURL=style.css.map */
