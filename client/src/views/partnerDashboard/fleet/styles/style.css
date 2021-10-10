@@ -1,3 +1,8 @@
+.partner-fleet .v {
+  margin: 20px 0;
+  margin-bottom: 40px;
+}
+
 .partner-fleet .v svg {
   color: blue !important;
 }
@@ -32,6 +37,11 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+}
+
+.partner-fleet-menu-item {
   -webkit-column-gap: 20px;
           column-gap: 20px;
 }

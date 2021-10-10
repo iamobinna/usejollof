@@ -1,4 +1,5 @@
-.partner-insight {
+.delivery-signin {
+  margin-top: 50px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -6,6 +7,10 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  row-gap: 30px;
+  row-gap: 20px;
+}
+
+.sigin-btn-m {
+  background: green !important;
 }
 /*# sourceMappingURL=style.css.map */

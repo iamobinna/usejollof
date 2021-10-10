@@ -3,6 +3,8 @@
         svg{
             color: blue !important;
         }
+        margin: 20px 0;
+        margin-bottom: 40px;
     }
 
     .card{
@@ -22,5 +24,9 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
+    column-gap: 20px;
+}
+
+.partner-fleet-menu-item{
     column-gap: 20px;
 }

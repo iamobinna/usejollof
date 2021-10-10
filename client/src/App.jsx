@@ -2,6 +2,7 @@ import "./app.css";
 import UserDashboard from './views/userDashboard';
 import VendorDashboard from './views/vendorDashboard';
 import PartnerDashboard from './views/partnerDashboard';
+import PWA from './views/pwa';
 import SignIn from './views/SignIn';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import DateAdapter from '@mui/lab/AdapterMoment';
@@ -23,6 +24,7 @@ function App() {
                             <PartnerDashboard/>
                         </LocalizationProvider>
                     </Route>
+                    <Route path = '/delivery/:id' exact component={PWA} />
                     <Route path = '/' component={SignIn} />
                 </Switch>
             </BrowserRouter>
