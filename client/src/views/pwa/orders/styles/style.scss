@@ -1,0 +1,32 @@
+.delivery-boy-order{
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    max-height: 45px;
+    transition: max-height 0.2s;
+}
+
+.delivery-boy-order-active{
+    max-height: 900px;
+    padding: 20px;
+}
+
+.delivery-boy-orders{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.delivery-order-button{
+    background: linear-gradient(to right, green, rgb(0, 128, 90));
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.delivery-order-button:active{
+    background: linear-gradient(to right, rgb(0, 128, 90), green);
+
+}

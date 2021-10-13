@@ -1,0 +1,17 @@
+.map{
+    background: rgb(85, 85, 85);
+    color: white;
+    justify-content: center;
+    height: 400px;
+}
+
+.red{
+    background: linear-gradient(to right, red, rgb(206, 2, 70)) !important;
+
+}
+
+.red:active{
+    background: linear-gradient(to right, rgb(206, 2, 70), red) !important;
+
+
+}

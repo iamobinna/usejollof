@@ -1,1 +1,19 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+.map {
+  background: #555555;
+  color: white;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 400px;
+}
+
+.red {
+  background: -webkit-gradient(linear, left top, right top, from(red), to(#ce0246)) !important;
+  background: linear-gradient(to right, red, #ce0246) !important;
+}
+
+.red:active {
+  background: -webkit-gradient(linear, left top, right top, from(#ce0246), to(red)) !important;
+  background: linear-gradient(to right, #ce0246, red) !important;
+}
+/*# sourceMappingURL=style.css.map */

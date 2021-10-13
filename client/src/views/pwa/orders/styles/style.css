@@ -1,1 +1,46 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+.delivery-boy-order {
+  padding: 10px 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 10px;
+  max-height: 45px;
+  -webkit-transition: max-height 0.2s;
+  transition: max-height 0.2s;
+}
+
+.delivery-boy-order-active {
+  max-height: 900px;
+  padding: 20px;
+}
+
+.delivery-boy-orders {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 20px;
+}
+
+.delivery-order-button {
+  background: -webkit-gradient(linear, left top, right top, from(green), to(#00805a));
+  background: linear-gradient(to right, green, #00805a);
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.delivery-order-button:active {
+  background: -webkit-gradient(linear, left top, right top, from(#00805a), to(green));
+  background: linear-gradient(to right, #00805a, green);
+}
+/*# sourceMappingURL=style.css.map */
