@@ -1,1 +1,63 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+.add-location-btn {
+  background: white;
+  padding: 7px 15px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  border-radius: 30px;
+  -webkit-transition: 0s !important;
+  transition: 0s !important;
+}
+
+.add-location-btn svg {
+  font-size: 18px;
+  color: green;
+}
+
+.add-location-btn:hover {
+  background: #fafafa;
+}
+
+.add-location-btn:active {
+  background: whitesmoke;
+}
+
+.user-address-list {
+  -webkit-box-align: unset !important;
+      -ms-flex-align: unset !important;
+          align-items: unset !important;
+  row-gap: 15px;
+  margin-top: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.user-address {
+  -webkit-column-gap: 50px !important;
+          column-gap: 50px !important;
+  padding: 10px 20px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.icon-btn {
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  background: green;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 50%;
+}
+
+.icon-btn svg {
+  color: white;
+}
+/*# sourceMappingURL=style.css.map */

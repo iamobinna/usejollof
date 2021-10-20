@@ -6,6 +6,8 @@ import Button2 from '../../../components/Button2';
 import Button3 from '../../../components/Button3';
 import CancelIcon from '@mui/icons-material/Cancel';
 import {useState} from 'react';
+import Table from '../../../components/table';
+import Map from '../../../components/GoogleMap';
 
 const columns = [
     {id: 'service', label: 'Service', minWidth: '160px'},
@@ -30,7 +32,15 @@ const Index = () => {
 
     return (
         <div className="user-schedule">
-            <h3>Ongoing orders</h3>
+            <h3>On Going Order</h3>
+                <Map onlyMap={true} />
+            
+            <h3 style={{
+                marginTop: '40px'
+            }} >Past Orders</h3>
+            <div className="card fit">
+                <Table columns={columns} rows={rows} />
+            </div>
         </div>
     )
 }

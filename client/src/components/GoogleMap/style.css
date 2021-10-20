@@ -1,0 +1,55 @@
+#googleMaps{
+    display: flex;
+    width: 100%;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+#map-container{
+    height: 50vh;
+    position: relative;
+}
+
+.location-search-input{
+    max-width: 400px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    background: none;
+    outline: none !important;
+    width: 100%;
+    transition: border 0.2s;
+    box-sizing:content-box !important;
+}
+.location-search-input:focus{
+    border: 2px solid grey;
+}
+
+.autocomplete-dropdown-container{
+    max-width: 400px;
+    width: 100%;
+    margin-top: -10px;
+    position: absolute;
+    z-index: 10;
+}
+
+.suggestions-map{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    padding: 10px;
+    border-radius: 0 0 5px 5px;
+    max-width: 400px;
+}
+
+.bro{
+    box-shadow: 0px 5px 10px 1px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.suggestion-item{
+    background: none !important;
+
+}

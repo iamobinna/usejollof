@@ -1,1 +1,16 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+.admin-category {
+  padding: 5px 15px;
+}
+
+.admin-categories {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: unset;
+      -ms-flex-align: unset;
+          align-items: unset;
+  row-gap: 15px;
+  cursor: pointer;
+}
+/*# sourceMappingURL=style.css.map */

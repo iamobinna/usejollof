@@ -20,18 +20,18 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 const Index = ({currentIndex, setCurrentIndex}) => {
 
     const tabs = [
-        { id: 0, name: "Manage Users", icon: PeopleAltIcon , color: 'blue'},
-        { id: 1, name: "Manage Merchants", icon: FoodBankIcon , color: 'blue'},
-        { id: 2, name: "Manage Orders", icon: ShoppingCartIcon , color: 'blue'},
-        { id: 3, name: "Manage Timings", icon: AccessTimeFilledIcon , color: 'blue'},
-        { id: 4, name: "Manage Branches", icon: AccountTreeIcon , color: 'blue'},
-        { id: 5, name: "Manage Payouts", icon: PaymentsIcon , color: 'blue'},
-        { id: 6, name: "Manage Prices", icon: PriceChangeIcon , color: 'blue'},
-        { id: 7, name: "Manage Wallets", icon: AccountBalanceWalletIcon , color: 'blue'},
-        { id: 8, name: "Mannge Offers", icon: LocalOfferIcon , color: 'blue'},
-        { id: 9, name: "Manage Categories", icon: CategoryIcon , color: 'blue'},
-        { id: 10, name: "Manage Locations", icon: LocationOnIcon , color: 'blue'},
-        { id: 11, name: "Commission", icon: MonetizationOnIcon , color: 'blue'},
+        { id: 0, name: "Manage Requests", icon: PeopleAltIcon , color: 'blue'},
+        // { id: 1, name: "Manage Merchants", icon: FoodBankIcon , color: 'blue'},
+        { id: 1, name: "Manage Orders", icon: ShoppingCartIcon , color: 'blue'},
+        { id: 2, name: "Manage Timings", icon: AccessTimeFilledIcon , color: 'blue'},
+        { id: 3, name: "Manage Accounts", icon: AccountTreeIcon , color: 'blue'},
+        { id: 4, name: "Manage Payouts", icon: PaymentsIcon , color: 'blue'},
+        { id: 5, name: "Manage Prices", icon: PriceChangeIcon , color: 'blue'},
+        { id: 6, name: "Manage Wallets", icon: AccountBalanceWalletIcon , color: 'blue'},
+        { id: 7, name: "Mannge Offers", icon: LocalOfferIcon , color: 'blue'},
+        { id: 8, name: "Manage Categories", icon: CategoryIcon , color: 'blue'},
+        { id: 9, name: "Manage Locations", icon: LocationOnIcon , color: 'blue'},
+        { id: 10, name: "Commission", icon: MonetizationOnIcon , color: 'blue'},
     ];
 
     return (

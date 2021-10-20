@@ -110,4 +110,8 @@
 .close-btn:active {
   color: #b91212;
 }
+
+.user-schedule {
+  margin-left: -20px !important;
+}
 /*# sourceMappingURL=style.css.map */

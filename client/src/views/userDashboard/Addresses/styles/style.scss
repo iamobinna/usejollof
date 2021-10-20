@@ -1,0 +1,46 @@
+.add-location-btn{
+    background: white;
+    padding: 7px 15px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    border-radius: 30px;
+    transition: 0s !important;
+    svg{
+        font-size: 18px;
+        color: green;
+    }
+}
+
+.add-location-btn:hover{
+    background: rgb(250, 250, 250);
+}
+.add-location-btn:active{
+    background: rgb(245, 245, 245);
+}
+
+.user-address-list{
+    align-items: unset !important;
+    row-gap: 15px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-address{
+    column-gap: 50px !important;
+    padding: 10px 20px;
+    justify-content: space-between;
+}
+
+.icon-btn{
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    background: green;
+    justify-content: center;
+    border-radius: 50%;
+    svg{
+        color: white;
+    }
+}
