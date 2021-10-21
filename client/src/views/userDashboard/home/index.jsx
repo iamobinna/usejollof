@@ -16,15 +16,24 @@ const Index = () => {
         <div className="user-home">
             <span style={{display: 'flex', columnGap: '10px'}} >Greetings,<h4>{user}</h4></span>
             <div className="user-home-body">
-                <div className="user-current-amount user-wallet-card box">
-                    <AccountBalanceWalletIcon style={{fontSize: '50px'}}/>
-                    <h5>Current Balance</h5>
-                    <h2>{50} $</h2>
+                <div className="flex" style={{justifyContent: 'space-between'}}>
+                    <h2>I want to</h2>
+                    <div className="user-current-amount user-wallet-card box">
+                        <AccountBalanceWalletIcon style={{fontSize: '50px'}}/>
+                        <h5>Current Balance</h5>
+                        <h2>{50} $</h2>
+                    </div>
                 </div>
-                <div className="card user-home-line">
-                    <LineChart dataValues = {dataValues} chartTitle={chartTitle} showFrom = {7} />
+                <div className="flex line-new ">
+                    <div className="history-card">
+                        <History customRows = {2} />
+                    </div>
+                    <div className="card user-home-line">
+                        <LineChart dataValues = {dataValues} chartTitle={chartTitle} showFrom = {7} />
+                    </div>
                 </div>
                 <div className="user-home-row">
+                    <h3 style={{marginTop: '40px'}} >Ongoing orders</h3>
                     <div className="ongoing-tasks-temp">
                         <div className="test-task d1">
                             <h3>task</h3>
@@ -39,7 +48,6 @@ const Index = () => {
                             <h3>task</h3>
                         </div>
                     </div>
-                    <History customRows = {2} />
                 </div>
                 <div className="explore-section">
                     <h3>Explore <ExploreIcon/> </h3>

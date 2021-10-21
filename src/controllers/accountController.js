@@ -3,6 +3,8 @@ const accountModel = require('../model/accountModel.js');
 const {registerValidation, loginValidation} = require('../validation/accountValidation.js');
 const bcrypt = require( 'bcryptjs');
 const jwt = require( 'jsonwebtoken');
+const multer  = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 const router =  express.Router();
 
@@ -10,7 +12,7 @@ const test = (req, res) => {
     res.send('Secret information- only available when logged in');
 }
 
-const removeAccount = async = (req, res) => {
+const removeAccount = async (req, res) => {
     let email = req.email;
     try {
         const deleted = accountModel.deleteOne({email: email});
@@ -23,7 +25,7 @@ const removeAccount = async = (req, res) => {
     }
 }
 
-const updateAccount = async = (req, res) => { //updation
+const updateAccount = async (req, res) => { //updation
     try {
         res.status(200).send('updated');
     } catch (error) {
@@ -31,9 +33,15 @@ const updateAccount = async = (req, res) => { //updation
     }
 }
 
-const createAccount = async (req, res) => {
+
+const  createAccount = async (req, res) => {
     //Validation
-    const {error} = registerValidation(req.body);
+    const toValidate = {
+        email: req.body.email,
+        name: req.body.user,
+        password: req.body.password
+    }
+    const {error} = registerValidation(toValidate);
     if(error) return res.status(400).send(error);
 
     //Hash Password
@@ -42,7 +50,7 @@ const createAccount = async (req, res) => {
 
     const account = new accountModel({
         email: req.body.email,
-        name: req.body.name,
+        name: req.body.user,
         password: hashedPassword
     });
     

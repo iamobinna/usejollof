@@ -10,8 +10,22 @@ $darkGrey: rgb(148, 148, 148);
 }
 
 .user-home-line{
-    padding: 25px;
-    max-width: 450px;
+    // max-width: 450px;
+    height: 255px;
+    padding: auto;
+}
+
+.line-new{
+    flex-wrap: wrap;
+    column-gap: 20px;
+    row-gap: 20px;
+    width: 100%;
+}
+
+.history-card{
+    flex: 1;
+    max-width: 100%;
+    margin-left: 20px;
 }
 
 .user-home-row{
@@ -20,22 +34,25 @@ $darkGrey: rgb(148, 148, 148);
     flex-wrap: wrap;
     row-gap: 20px;
     width: 100%;
+    justify-content: space-between;
 }
 
 .ongoing-tasks-temp{
     display: flex;
     padding-top: 10px;
     padding-right: 10px;
-    flex-direction: column;
+    // flex-direction: column;
     column-gap: 20px;
+    flex-wrap: wrap;
     row-gap: 20px;
-    max-height: 250px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    // row-gap: 20px;
+    // max-height: 250px;
+    // overflow-y: scroll;
+    // overflow-x: hidden;
 }
 
 .test-task{
-    width: 200px;
+    width: 300px;
     color: white;
     border-radius: 20px;
     padding: 40px;
@@ -64,4 +81,12 @@ $darkGrey: rgb(148, 148, 148);
 .ongoing-tasks-temp::-webkit-scrollbar-thumb {
     cursor: pointer;
     background-color: $darkGrey; /* color of the scroll thumb */
+}
+
+.user-current-amount{
+    align-self: flex-end;
+}
+
+.user-home-line{
+    align-self: flex-end;
 }

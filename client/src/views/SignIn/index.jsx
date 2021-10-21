@@ -3,8 +3,7 @@ import {useRef} from 'react';
 import "./styles/styles.css";
 import signinIllustration from "../../static/svgs/signin.svg";
 import TextField from '@mui/material/TextField'
-// import {useDispatch} from 'react-redux';
-// import {useHistory, Redirect} from 'react-router-dom';
+import { signUp } from "../../services/axios/account";
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import avatar from '../../static/images/avatar.jpg';
@@ -12,7 +11,7 @@ import Alert from "@mui/material/Alert";
 import { openInAppLink } from "../../services/openLinks";
 
 const Index = () => {
-    const [signUp, setSignUp] = useState(false);
+    const [_signUp, setSignUp] = useState(false);
     const [alert, setAlert] = useState(null);
     const [credentials, setCredentials] = useState({
         name: "",
@@ -22,6 +21,7 @@ const Index = () => {
 
     const [error, setError] = useState(false);
     const [profileImage, setProfileImage] = useState(null);
+    const [sendProfileImage, setSendProfileImage] = useState(null);
 
     const imageRef = useRef(null);
 
@@ -32,6 +32,7 @@ const Index = () => {
     const imageHandler = (e) => {
         if(e.target.files[0])
         {
+            setSendProfileImage(e.target.files[0]);
             const reader = new FileReader();
             reader.onload = () => {
                 if(reader.readyState === 2){
@@ -44,14 +45,23 @@ const Index = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        if(credentials.email === 'vendor@vendor.com')
-        {
-            openInAppLink('/vendor/:id');
-        }
-        else
-        {
-            openInAppLink('/user/:id');
-        }
+        const fd = new FormData();
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + '-' + sendProfileImage.name;
+        fd.append('name', uniqueSuffix);
+        fd.append('image', sendProfileImage);
+        fd.append('user', credentials.name);
+        fd.append('email', credentials.email);
+        fd.append('password', credentials.password);
+        signUp(fd);
+        // console.log('unique', uniqueSuffix);
+        // if(credentials.email === 'vendor@vendor.com')
+        // {
+        //     openInAppLink('/vendor/:id');
+        // }
+        // else
+        // {
+        //     openInAppLink('/user/:id');
+        // }
     }
 
     return (
@@ -65,7 +75,7 @@ const Index = () => {
                 <div className="signin">
                     <div className="col1-container">
                         <div className="col1-bg"></div>
-                        <div className={`circle ${signUp && "circle-2"}`}></div>
+                        <div className={`circle ${_signUp && "circle-2"}`}></div>
                         <div className="col1">
                             <div className="logo">
                                 We-Deliver<FoodBankIcon style={{ fontSize: "30px" }} />{" "}
@@ -77,11 +87,11 @@ const Index = () => {
                     <div className="col2-container">
                         <form className="col2" onSubmit={submitHandler} >
                             <div className="heading">
-                                <h2>{signUp ? "Register" : "Login"}</h2>
+                                <h2>{_signUp ? "Register" : "Login"}</h2>
                                 <h4>For an amazing experience!</h4>
                             </div>
                             <div className="inputs">
-                                {signUp && (
+                                {_signUp && (
                                     <>
                                         <div className="image-uploader" onClick={() => handleClick()}>
                                     <img src={ profileImage? profileImage : avatar} alt='' />
@@ -156,10 +166,10 @@ const Index = () => {
                             </div>
                             <div className="btn">
                                 <button type="submit">
-                                    {signUp ? "SIGN UP" : "LOG IN"}
+                                    {_signUp ? "SIGN UP" : "LOG IN"}
                                 </button>
-                                <h6 onClick={() => setSignUp(!signUp)}>
-                                    {signUp
+                                <h6 onClick={() => setSignUp(!_signUp)}>
+                                    {_signUp
                                         ? "Have an account?"
                                         : "Make an account?"}
                                 </h6>
