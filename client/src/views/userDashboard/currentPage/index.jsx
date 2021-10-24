@@ -10,7 +10,7 @@ import Addresses from '../Addresses';
 import SearchIcon from '@mui/icons-material/Search';
 import './styles/style.css';
 
-const Index = ({currentIndex}) => {
+const Index = ({currentIndex, user}) => {
     const tabs = [
         {id: 0, component: Home, name: 'Home', to: '/' },
         {id: 1, component: Profile, name: 'Profile', to: '/account' },
@@ -35,7 +35,7 @@ const Index = ({currentIndex}) => {
                                 <SearchIcon/>
                             </div>
                         </div>
-                        <tab.component />
+                        <tab.component user={user} />
                     </>
                     );
                 } else return null;

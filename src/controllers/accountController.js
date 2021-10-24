@@ -4,7 +4,7 @@ const {registerValidation, loginValidation} = require('../validation/accountVali
 const bcrypt = require( 'bcryptjs');
 const jwt = require( 'jsonwebtoken');
 const multer  = require('multer');
-const upload = multer({ dest: 'uploads/' });
+// const upload = multer({ dest: 'uploads/' });
 
 const router =  express.Router();
 
@@ -33,7 +33,6 @@ const updateAccount = async (req, res) => { //updation
     }
 }
 
-
 const  createAccount = async (req, res) => {
     //Validation
     const toValidate = {
@@ -51,18 +50,16 @@ const  createAccount = async (req, res) => {
     const account = new accountModel({
         email: req.body.email,
         name: req.body.user,
-        password: hashedPassword
+        password: hashedPassword,
+        picUrl: req.body.name,
+        type: 'user'
     });
     
     try {
         const savedAccount = await account.save();
         const token = jwt.sign({_id: savedAccount._id}, process.env.TOKEN_SECRET);
 
-        const objectToSend = {
-            name: savedAccount.name,
-            email: savedAccount.email,
-            auth_token: token
-        }
+        const objectToSend = {...savedAccount,auth_token: token}
 
         res.send(objectToSend);
     } catch (error) {
@@ -74,8 +71,6 @@ const login = async (req, res) => {
     //Validation
     const {error} = loginValidation(req.body);
     if(error) return res.status(400).send(error);
-    
-    
     
     try {
         //Check email
@@ -89,19 +84,26 @@ const login = async (req, res) => {
         //Logged In
         const token = jwt.sign({_id: emailExist._id}, process.env.TOKEN_SECRET);
         
-        const objectToSend = {
-            name: emailExist.name,
-            email: emailExist.email,
-            auth_token: token
-        }
-
-        // res.setHeader('auth-token', token);
-        res.status(200).send(objectToSend);
+        res.status(200).send({user: emailExist, auth_token: token});
         
     } catch (error) {
         res.status(400).send(error);
     }
 
 }
-module.exports = {createAccount, login, test};
+
+const getUser = async (req, res) => {
+    const id = req.header('user-id');
+    console.log('here', id);
+
+    try {
+        let emailExist = await accountModel.findById(id);
+        
+        res.status(200).send(emailExist);
+        
+    } catch (error) {
+        res.status(400).send(error);
+    }
+}
+module.exports = {createAccount, login, test, getUser};
 module.exports.default = router;

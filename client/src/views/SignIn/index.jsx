@@ -1,16 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import {useRef} from 'react';
 import "./styles/styles.css";
 import signinIllustration from "../../static/svgs/signin.svg";
 import TextField from '@mui/material/TextField'
-import { signUp } from "../../services/axios/account";
+import { signUp, signIn } from "../../services/axios/account";
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import avatar from '../../static/images/avatar.jpg';
 import Alert from "@mui/material/Alert";
-import { openInAppLink } from "../../services/openLinks";
+import { Redirect } from "react-router-dom";
 
 const Index = () => {
+
+    const [userType, setUserType] = useState(JSON.parse(localStorage.getItem('userData'))?.user?.type);
+
+    if(userType)
+    {
+        <Redirect to='/' />
+    }
+
     const [_signUp, setSignUp] = useState(false);
     const [alert, setAlert] = useState(null);
     const [credentials, setCredentials] = useState({
@@ -18,7 +26,6 @@ const Index = () => {
         email: "",
         password: "",
     });
-
     const [error, setError] = useState(false);
     const [profileImage, setProfileImage] = useState(null);
     const [sendProfileImage, setSendProfileImage] = useState(null);
@@ -43,25 +50,39 @@ const Index = () => {
         }
     }
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
-        const fd = new FormData();
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + '-' + sendProfileImage.name;
-        fd.append('name', uniqueSuffix);
-        fd.append('image', sendProfileImage);
-        fd.append('user', credentials.name);
-        fd.append('email', credentials.email);
-        fd.append('password', credentials.password);
-        signUp(fd);
-        // console.log('unique', uniqueSuffix);
-        // if(credentials.email === 'vendor@vendor.com')
-        // {
-        //     openInAppLink('/vendor/:id');
-        // }
-        // else
-        // {
-        //     openInAppLink('/user/:id');
-        // }
+        if(_signUp)
+        {
+            const fd = new FormData();
+            const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + '-' + sendProfileImage.name;
+            fd.append('name', uniqueSuffix);
+            fd.append('image', sendProfileImage);
+            fd.append('user', credentials.name);
+            fd.append('email', credentials.email);
+            fd.append('password', credentials.password);
+            const data = await signUp(fd);
+            if(data){
+                setUserType('user');
+            }else{
+                setAlert('There was some problem in connection');
+            }
+        }
+        else{
+            const data = await signIn(credentials);
+            if(data)
+            {
+                setUserType('user');
+            }else{
+                setAlert('Make sure your credentials are correct')
+            }
+        }
+    }
+
+    if(userType){
+        return(
+            <Redirect to='/' />
+        )
     }
 
     return (

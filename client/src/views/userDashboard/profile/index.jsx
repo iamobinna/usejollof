@@ -11,16 +11,20 @@ import ExploreIcon from '@mui/icons-material/Explore';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import { URL } from '../../../urls';
 
-const Index = () => {
+const Index = ({user}) => {
 
     const [edit, setEdit] = useState(false);
 
     return (
         <div className="user-profile">
+            {
+                console.log(`${URL}/uploads/${user.picUrl}`)
+            }
             <div className="profile-upper">
                 <div className="box profile-pic">
-                    <ImageInContainer imageSrc = {profilePic} />
+                    <ImageInContainer imageSrc = {`${URL}/uploads/${user.picUrl}`} />
                 </div>
                 <div className="profile-details">
                     <div className="d d1 box">

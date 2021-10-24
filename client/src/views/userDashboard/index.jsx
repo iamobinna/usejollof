@@ -5,14 +5,14 @@ import './styles/style.css';
 // import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Currentpage from './currentPage';
 
-const Index = () => {
+const Index = ({user}) => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
 
     return (
         <div className='user-dashboard-container' >
             <LeftBar currentIndex={currentIndex} setCurrentIndex={setCurrentIndex}/>
-            <Currentpage currentIndex={currentIndex} />
+            <Currentpage user={user} currentIndex={currentIndex} />
             <RightBar/>
         </div>
     )

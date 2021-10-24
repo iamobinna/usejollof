@@ -5,6 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import DriveEtaIcon from '@mui/icons-material/DriveEta';
 import LoginIcon from '@mui/icons-material/Login';
+import { signOut } from "../../../services/axios/account";
 import "./styles/style.css";
 
 const Index = ({currentIndex, setCurrentIndex}) => {
@@ -36,7 +37,7 @@ const Index = ({currentIndex, setCurrentIndex}) => {
                                 </div>
                         ))
                     }
-                        <div className={`delivery-logout delivery-nav-option`}>
+                        <div className={`delivery-logout delivery-nav-option`} onClick={() => signOut()} >
                             <LogoutIcon className='' />
                             <span>Log out</span>
                         </div>

@@ -9,6 +9,7 @@ import PaymentsIcon from '@mui/icons-material/Payments';
 import Tooltip from "@mui/material/Tooltip";
 import { openInAppLink } from "../../../services/openLinks";
 import LogoutIcon from '@mui/icons-material/Logout';
+import { signOut } from "../../../services/axios/account";
 import "./styles/style.css";
 
 const Index = ({currentIndex, setCurrentIndex}) => {
@@ -36,7 +37,7 @@ const Index = ({currentIndex, setCurrentIndex}) => {
                     </Tooltip>
                 ))
             }
-            <Tooltip title='logout' onClick={() => openInAppLink('/')} >
+            <Tooltip title='logout' onClick={() => signOut()} >
                 <div className={`left-bar-icon left-bar-icon-active `}>
                     <LogoutIcon style={{color: `red`}} className='LB-icon' />
                 </div>

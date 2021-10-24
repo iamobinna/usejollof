@@ -18,11 +18,12 @@ const upload = multer({ storage: storage });
 
 /* -MULTER */
 
-const {login, test, createAccount} = require('../controllers/accountController.js');
+const {login, test, createAccount, getUser} = require('../controllers/accountController.js');
 
 const accountRouter = express.Router();
 
 accountRouter.get('/test', auth, test);
+accountRouter.get('/get', auth, getUser);
 accountRouter.post('/register', upload.single('image') , createAccount);
 accountRouter.post('/login', login);
 

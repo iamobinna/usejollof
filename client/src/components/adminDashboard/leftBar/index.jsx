@@ -15,6 +15,7 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import CategoryIcon from '@mui/icons-material/Category';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import { signOut } from "../../../services/axios/account";
 
 
 const Index = ({currentIndex, setCurrentIndex}) => {
@@ -47,7 +48,7 @@ const Index = ({currentIndex, setCurrentIndex}) => {
                     </Tooltip>
                 ))
             }
-            <Tooltip title='logout' onClick={() => openInAppLink('/')} >
+            <Tooltip title='logout' onClick={() => signOut()} >
                 <div className={`left-bar-icon left-bar-icon-active `}>
                     <LogoutIcon style={{color: `red`}} className='LB-icon' />
                 </div>

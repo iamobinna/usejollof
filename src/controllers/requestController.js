@@ -1,0 +1,99 @@
+const  {requestModel} = require('../model/requestModel');
+
+const createUpgradeRequest = async (req, res) => {
+    // console.log(req.body);
+    try {
+        const request = new requestModel(req.body);
+        const saved = await request.save();
+
+        if(saved)
+        {
+            console.log('here')
+            return res.status(200).send({request: saved});
+        }else{
+            return res.status(400).send('error');
+        }
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send('error');
+    }
+}
+
+const deleteUpgradeRequest = async (req, res) => {
+    // console.log(req.body);
+    try {
+        await requestModel.findById(req.body.id);
+        const del = await requestModel.findByIdAndDelete(req.body.id);
+
+        if(del)
+        {
+            return res.status(200).send('deleted');
+        }else{
+            return res.status(400).send('error');
+        }
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send('error');
+    }
+}
+
+const getUpgradeRequests = async (req, res) => {
+    // console.log(req.body);
+    try {
+        const requests = await requestModel.find();
+
+        if(requests)
+        {
+            return res.status(200).send(requests);
+        }else{
+            return res.status(400).send('error');
+        }
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send('error');
+    }
+}
+
+const getUpgradeRequest = async (req, res) => {
+    const email = req.header('email');
+
+    // console.log(req.body);
+    try {
+        const request = await requestModel.findById({requestedBy: email});
+
+        if(request)
+        {
+            return res.status(200).send(request);
+        }else{
+            return res.status(400).send('error');
+        }
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send('error');
+    }
+}
+
+const acceptUpgradeRequest = async (req, res) => {
+    // console.log(req.body);
+    try {
+        const updated = await requestModel.findOneAndUpdate(req.body);
+
+        if(updated)
+        {
+            return res.status(200).send(updated);
+        }else{
+            return res.status(400).send('error');
+        }
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send('error');
+    }
+}
+
+
+module.exports = {createUpgradeRequest, deleteUpgradeRequest, acceptUpgradeRequest,getUpgradeRequest, getUpgradeRequests};
