@@ -46,7 +46,7 @@ const Index = ({columns, rows, clickHandler, customRows, noHover, Action, setRow
                         ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map((row, index) => {
                             return (
-                            <TableRow hover = {noHover? false : true} role="checkbox" tabIndex={-1} key={row.code} onClick={() => clickHandler && clickHandler(row.id, index)} >
+                            <TableRow hover = {noHover? false : true} role="checkbox" tabIndex={-1} key={row.code} onClick={() => clickHandler && clickHandler(row._id, index)} >
                                 {columns.map((column) => {
                                 const value = row[column.id];
                                 if(Action)

@@ -12,7 +12,8 @@ var requestSchema = new Schema({
     requestedBy: {type: String, required: true},
     requestedFor: {type: String, required: true},
     name: {type: String, required: true},
-    approved: false,
+    answered: {type: Boolean, default: false},
+    approved: {type: Boolean, default: false},
     created: {type: Date, default: new Date()},
     location: {
         latLng: { lat: Number, lng: Number },

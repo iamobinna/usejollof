@@ -1,4 +1,6 @@
 const  {requestModel} = require('../model/requestModel');
+const accountModel = require('../model/accountModel.js');
+
 
 const createUpgradeRequest = async (req, res) => {
     // console.log(req.body);
@@ -62,7 +64,27 @@ const getUpgradeRequest = async (req, res) => {
 
     // console.log(req.body);
     try {
-        const request = await requestModel.findById({requestedBy: email});
+        const request = await requestModel.findOne({requestedBy: email});
+
+        if(request)
+        {
+            return res.status(200).send(request);
+        }else{
+            return res.status(400).send('error');
+        }
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send('error');
+    }
+}
+
+const getUpgradeRequestById = async (req, res) => {
+    const id = req.header('_id');
+
+    // console.log(req.body);
+    try {
+        const request = await requestModel.findById(id);
 
         if(request)
         {
@@ -78,9 +100,31 @@ const getUpgradeRequest = async (req, res) => {
 }
 
 const acceptUpgradeRequest = async (req, res) => {
+    console.log(req.body);
+    try {
+        const updated = await requestModel.findOneAndUpdate({_id: req.body.id}, {answered: true, approved: true}, {new: true});
+        const request = await requestModel.findById(id);
+        if(request)
+        {
+            const accountUpdated = await accountModel.findOneAndUpdate({email: request.requestedBy}, {type: req.body.type});
+        }
+        if(updated)
+        {
+            return res.status(200).send(updated);
+        }else{
+            return res.status(400).send('error');
+        }
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send('error');
+    }
+}
+
+const rejectUpgradeRequest = async (req, res) => {
     // console.log(req.body);
     try {
-        const updated = await requestModel.findOneAndUpdate(req.body);
+        const updated = await requestModel.findOneAndUpdate({_id: req.body.id}, {answered: true, approved: false}, {new: true});
 
         if(updated)
         {
@@ -96,4 +140,4 @@ const acceptUpgradeRequest = async (req, res) => {
 }
 
 
-module.exports = {createUpgradeRequest, deleteUpgradeRequest, acceptUpgradeRequest,getUpgradeRequest, getUpgradeRequests};
+module.exports = {createUpgradeRequest, deleteUpgradeRequest, getUpgradeRequestById, acceptUpgradeRequest,getUpgradeRequest, getUpgradeRequests, rejectUpgradeRequest};
