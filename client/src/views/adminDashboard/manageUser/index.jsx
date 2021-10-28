@@ -32,8 +32,8 @@ const PopUp = ({id, setID, applications, setApplications}) => {
     }
 
     const approve = async () => {
-        const data = await approveRequest(id, data?.requestedFor);
-        if(data)
+        const _data = await approveRequest(id, data?.requestedFor);
+        if(_data)
         {
             //remove from list
             let arr = [...applications];

@@ -1,5 +1,5 @@
 import './styles/style.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import store from '../../../static/images/store.jpg';
 import ImageInContainer from '../../../components/imageInContainer';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
@@ -10,6 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ShareIcon from '@mui/icons-material/Share';
 import CancelIcon from '@mui/icons-material/Cancel';
 import {TextField }from '@mui/material';
+import {getVendor} from '../../../services/axios/vendor';
 
 
 const AddBranch = ({id, setID}) => {
@@ -65,10 +66,25 @@ const AddBranch = ({id, setID}) => {
 
 const Index = () => {
     const [id, setID] = useState(null);
+    const [data, setData] = useState(null);
 
     const clickHandler = (id) => {
         setID(id);
     }
+
+    const fetch = async () => {
+        const _data = await getVendor();
+        if(_data)
+        {
+            setData(_data);
+            console.log(_data);
+        }
+    }
+
+    useEffect(() => {
+        fetch();
+    },[])
+
     return (
         <div className="vendor-store">
             <AddBranch id={id} setID={setID} />
@@ -83,9 +99,9 @@ const Index = () => {
                         <h5><DetailsIcon/> Description</h5>
                     </div>
                     <div className="vendor-store-col1">
-                        <span>De Foodies</span>
-                        <span>Malir Town</span>
-                        <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid sed deleniti.</span>
+                        <span>{data?.name}</span>
+                        <span>{data?.location.address}</span>
+                        <span>{data?.description}</span>
                     </div>
                 </div>
             </div>

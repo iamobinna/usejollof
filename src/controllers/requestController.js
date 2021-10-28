@@ -1,5 +1,6 @@
 const  {requestModel} = require('../model/requestModel');
 const accountModel = require('../model/accountModel.js');
+const vendorModel = require('../model/vendorModel.js');
 
 
 const createUpgradeRequest = async (req, res) => {
@@ -103,9 +104,16 @@ const acceptUpgradeRequest = async (req, res) => {
     console.log(req.body);
     try {
         const updated = await requestModel.findOneAndUpdate({_id: req.body.id}, {answered: true, approved: true}, {new: true});
-        const request = await requestModel.findById(id);
+        const request = await requestModel.findById(req.body.id);
         if(request)
         {
+            const vendor = new vendorModel({
+                email: request.requestedBy,
+                name: request.name,
+                location: request.location
+            });
+
+            await vendor.save();
             const accountUpdated = await accountModel.findOneAndUpdate({email: request.requestedBy}, {type: req.body.type});
         }
         if(updated)

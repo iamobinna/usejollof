@@ -7,7 +7,8 @@ var productSchema = new Schema({
     price: Number,
     time: Number,
     pictures: [String],
-    category: String
+    category: String,
+    vendor: String
 });
 
 let productModel = mongoose.model("product", productSchema);
