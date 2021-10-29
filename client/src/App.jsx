@@ -4,7 +4,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import UserAssigner from './userAssigner.jsx';
 
 function App() {
-
+    window.Worker = Worker;
     return (
         <div>
             <BrowserRouter>

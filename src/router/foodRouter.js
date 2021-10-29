@@ -1,7 +1,7 @@
 const express = require('express');
 const foodRouter = express.Router();
 const auth = require( '../authentication');
-const {getFood, getFoods, createFood}  = require('../controllers/foodController');
+const {getFood, getFoods, createFood, deleteFood}  = require('../controllers/foodController');
 const multer  = require('multer');
 
 const storage = multer.diskStorage({
@@ -16,6 +16,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 foodRouter.get('/getfood', auth, getFood);
+foodRouter.delete('/delete', auth, deleteFood);
 foodRouter.get('/getfoods', auth, getFoods);
 foodRouter.post('/create', auth ,upload.array('images', 3), createFood)
 

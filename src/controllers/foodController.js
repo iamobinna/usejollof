@@ -18,8 +18,9 @@ const getFood = async (req, res) => {
 
 const getFoods = async (req, res) => {
     const email = req.header('email');
+    console.log(email);
     try {
-        const food = await foodModel.find({email});
+        const food = await foodModel.find({vendor: email});
         if(food)
         {
             res.status(200).send(food);
@@ -34,17 +35,27 @@ const getFoods = async (req, res) => {
 
 const updateFood = async () => {
     try {
-        const foood = foodModel.findById();
-    } catch (error) {
-        
+        const food = foodModel.findById();
     }
+    catch(e){
+
+    }
+        
 }
 
-const deleteFood = async () => {
+const deleteFood = async (req, res) => {
+    const id = req.header('food-id');
     try {
-        const foood = foodModel.findById();
+        const food = await foodModel.findByIdAndDelete(id);
+        if(food)
+        {
+            res.status(200).send('deleted');
+        }
+        else{
+            res.status(400).send('error')
+        }
     } catch (error) {
-        
+        res.status(400).send('error');
     }
 }
 
@@ -63,7 +74,7 @@ const createFood = async (req, res) => {
             time: req.body.time,
             pictures: images,
             category: req.body.category,
-            vendor: req.body.email
+            vendor: req.body.vendor
         });
 
         const saved = await val.save();
@@ -80,4 +91,4 @@ const createFood = async (req, res) => {
 }
 
 
-module.exports = {getFood, getFoods, createFood};
+module.exports = {getFood, getFoods, createFood, deleteFood};
