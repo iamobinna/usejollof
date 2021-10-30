@@ -58,7 +58,6 @@ export class MapContainer extends Component {
         onChange={this.handleChange}
         onSelect={this.handleSelect}
         >
-          {console.log('rendered')}
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
             <div style={{width: '95%'}} >
               <input
