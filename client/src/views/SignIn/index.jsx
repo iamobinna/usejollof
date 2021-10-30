@@ -54,7 +54,7 @@ const Index = () => {
         e.preventDefault();
         if(_signUp)
         {
-            const userData = JSON.parse(localStorage.getItem('userData'));
+            // const userData = JSON.parse(localStorage.getItem('userData'));
             const fd = new FormData();
             const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + '-' + sendProfileImage.name;
             fd.append('name', uniqueSuffix);
@@ -62,7 +62,7 @@ const Index = () => {
             fd.append('user', credentials.name);
             fd.append('email', credentials.email);
             fd.append('password', credentials.password);
-            fd.append('email', userData.user.email);
+            // fd.append('email', userData.user.email);
             const data = await signUp(fd);
             if(data){
                 setUserType('user');
