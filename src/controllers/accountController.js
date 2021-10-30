@@ -59,7 +59,7 @@ const  createAccount = async (req, res) => {
         const savedAccount = await account.save();
         const token = jwt.sign({_id: savedAccount._id}, process.env.TOKEN_SECRET);
 
-        const objectToSend = {...savedAccount,auth_token: token}
+        const objectToSend = {user: savedAccount, auth_token: token}
 
         res.send(objectToSend);
     } catch (error) {
