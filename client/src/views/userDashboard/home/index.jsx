@@ -7,14 +7,14 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import History from '../History';
 import LineChart from '../../../components/lineChart';
 
-const Index = () => {
+const Index = ({user}) => {
     
     const dataValues = [1, 0, 3, 5, 2, 3, 0];
     const chartTitle = 'Orders';
-    const user = 'Shah Fahad';
+    // const user = 'Shah Fahad';
     return (
         <div className="user-home">
-            <span style={{display: 'flex', columnGap: '10px'}} >Greetings,<h4>{user}</h4></span>
+            <span style={{display: 'flex', columnGap: '10px'}} >Greetings,<h4>{user?.name}</h4></span>
             <div className="user-home-body">
                 <div className="flex" style={{justifyContent: 'space-between'}}>
                     <h2>I want to</h2>
