@@ -6,14 +6,15 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { getOrders, updateOrder } from '../../../services/axios/order';
 
-const PopUp = ({id, setID, rows, setRows}) => {
+const PopUp = ({data, setData, id, setID, rows, setRows}) => {
     const [age, setAge] = useState('pending');
     
     useEffect(() => {
         if(id)
         {
-            setAge(rows[id.index].state);
+            setAge(rows[id.index].status);
         }
     }, [id]);
     
@@ -22,11 +23,26 @@ const PopUp = ({id, setID, rows, setRows}) => {
         return null;
     }
 
-    const handleChange = (event) => {
-        let arr = [...rows];
-        arr[id.index] = {...arr[id.index], state: event.target.value};
-        setRows(arr);
-        setAge(event.target.value);
+    const handleChange = async (event) => {
+        let toUpdate;
+        let dat = data;
+        for (let i = 0; i < data.length; i++) {
+            if(id.id === data[i]._id){
+                toUpdate = data[i];
+                toUpdate.status = event.target.value;
+                dat[i] = toUpdate; 
+                break;
+            }
+        }
+        const updated = await updateOrder(toUpdate);
+        if(updated)
+        {
+            let arr = [...rows];
+            arr[id.index] = {...arr[id.index], status: event.target.value};
+            setRows(arr);
+            setAge(event.target.value);
+            setData(dat);
+        }
     };
 
 
@@ -36,19 +52,23 @@ const PopUp = ({id, setID, rows, setRows}) => {
                 <CancelIcon className='close-btn' onClick = {() => setID(null)} />
                 <div className="pop-up-upper">
                     <div className="pop-up-col1">
-                        <span>Order No.</span>
+                        {/* <span>Order No.</span> */}
                         <span>Item</span>
                         <span>Location</span>
+                        <span>Order From</span>
                         <span>Price</span>
+                        <span>No of {rows[id.index].item}</span>
                         <span>Order placed at</span>
                         <span>Order state</span>
                     </div>
                     <div className="pop-up-col1">
-                        <span>12</span>
-                        <span>Burger</span>
-                        <span>Karachi</span>
-                        <span>50$</span>
-                        <span>2021-10-5</span>
+                        {/* <span>12</span> */}
+                        <span>{rows[id.index].item}</span>
+                        <span>{rows[id.index].user}</span>
+                        <span>{rows[id.index].location}</span>
+                        <span>{rows[id.index].cost}$</span>
+                        <span>{rows[id.index].qty}</span>
+                        <span>{rows[id.index].orderCreated}</span>
                     </div>
                 </div>
                 <Select
@@ -82,18 +102,19 @@ const PopUp = ({id, setID, rows, setRows}) => {
 
 
 const Index = () => {
-
-    const columns = [
-        {id: 'orderNumber', label: 'Order No.', minWidth: ''},
-        {id: 'item', label: 'Item', minWidth: ''},
-        {id: 'location', label: 'Location', minWidth: ''},
-        {id: 'state', label: 'Order state', minWidth: ''},
-    ];
     const columns1 = [
-        {id: 'orderNumber', label: 'Order No.', minWidth: ''},
         {id: 'item', label: 'Item', minWidth: ''},
         {id: 'location', label: 'Location', minWidth: ''},
+        {id: 'qty', label: 'Quantity', minWidth: ''},
+        {id: 'cost', label: 'Total Paid ($)', minWidth: ''},
         {id: 'action', label: 'Actions', minWidth: ''},
+    ];
+    const columns = [
+        {id: 'item', label: 'Item', minWidth: ''},
+        {id: 'location', label: 'Location', minWidth: ''},
+        {id: 'qty', label: 'Quantity', minWidth: ''},
+        {id: 'cost', label: 'Total Paid ($)', minWidth: ''},
+        {id: 'status', label: 'Order State', minWidth: ''},
     ];
 
     const [rows, setRows] = useState([
@@ -112,32 +133,106 @@ const Index = () => {
         {id: 10, orderNumber: '17', item: 'Burger', location: 'Karachi', state: 'pending'},
     ]);
 
+    const [data , setData] = useState([]);
+
     const [id, setID] = useState(null);
+
+    const fetch = async () => {
+        const data = await getOrders();
+        if(data)
+        {
+            setData(data);
+            console.log(data);
+            let arr1 = [];
+            let arr2 = [];
+            for (let i = 0; i < data.length; i++) {
+                // const food = await getFood(data[i].products.foodId);
+                const dateObj = new Date(data[i].orderCreated);
+                let myDate = (dateObj.getUTCFullYear()) + "/" + (dateObj.getMonth() + 1)+ "/" + (dateObj.getUTCDate());
+                const toPush = {
+                    _id: data[i]._id,
+                    location: data[i].location.address,
+                    item: data[i].products.foodId.name,
+                    orderCreated: myDate,
+                    user: data[i].user,
+                    cost: data[i].cost,
+                    qty: data[i].products.qty,
+                    status: data[i].status,
+                    approved: data[i].approved
+                };
+                if(toPush.status !== 'rejected'){
+                    if(toPush.approved === true)
+                        arr1.push(toPush);
+                    else if(toPush.approved === false)
+                        arr2.push(toPush);
+                }
+            }
+            setRows(arr1)
+            setRows1(arr2);
+        }
+    }
+
+    useEffect(() => {
+        fetch();
+    } ,[]);
 
     const clickHandler = (id, index) => {
         setID({id, index});
     }
 
-    const Action = ({id}) => {
+    const Action = ({id, index}) => {
 
-        const Reject = () => {
+        const Reject = async () => {
             if(id)
             {
-                let arr = [...rows1];
-                arr.splice(id.index, 1);
-                setRows1(arr);
+                let toUpdate;
+                let dat = data;
+                for (let i = 0; i < data.length; i++) {
+                    if(id === data[i]._id){
+                        toUpdate = data[i];
+                        toUpdate.status = 'rejected';
+                        dat.splice(i,1);
+                        break;
+                    }
+                }
+
+                const updated = await updateOrder(toUpdate);
+                if(updated)
+                {
+                    let arr = [...rows1];
+                    arr.splice(id.index, 1);
+                    setRows1(arr);
+                    setData(dat);
+                }
             }
         }
 
-        const Accept = () => {
+        const Accept = async () => {
             if(id)
             {
-                let arr1 = [...rows];
-                arr1.push(rows1[id.index]);
-                setRows(arr1);
-                arr1 = [...rows1];
-                arr1.splice(id.index, 1);
-                setRows1(arr1);
+                console.log('HERE');
+                let toUpdate;
+                let dat = data;
+                for (let i = 0; i < data.length; i++) {
+                    if(id === data[i]._id){
+                        toUpdate = data[i];
+                        toUpdate.approved = true;
+                        dat[i] = toUpdate; 
+                        break;
+                    }
+                }
+
+                const updated = await updateOrder(toUpdate);
+                if(updated)
+                {
+                    let arr1 = [...rows];
+                    arr1.push(rows1[index]);
+                    setRows(arr1);
+                    arr1 = [...rows1];
+                    arr1.splice(index, 1);
+                    setRows1(arr1);
+                    setData(dat);
+                }
             }
         }
         return(
@@ -157,7 +252,7 @@ const Index = () => {
     return (
         <div className='vendor-orders' >
             <h3>On going orders</h3>
-            <PopUp id={id} setID={setID} rows={rows} setRows={setRows} />
+            <PopUp data={data} setData={setData} id={id} setID={setID} rows={rows} setRows={setRows} />
             <div className="card" style={{width: 'fit-content', maxWidth: '100%'}}>
                 <Table rows={rows} columns={columns} clickHandler={clickHandler} />
             </div>

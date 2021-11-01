@@ -55,7 +55,7 @@ const Index = ({columns, rows, clickHandler, customRows, noHover, Action, setRow
                                     {
                                         return(
                                             <TableCell>
-                                                <Action id={{id: row.id, index}}/>
+                                                <Action id={row._id} index={index}/>
                                             </TableCell>
                                         )
                                     }

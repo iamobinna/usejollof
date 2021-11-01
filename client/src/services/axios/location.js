@@ -1,14 +1,70 @@
 import {URL} from '../../urls';
 import axios from 'axios';
 
-export const createFood = async (_data) => {
+export const getLocations = async () => {
     try {
         const userData = JSON.parse(localStorage.getItem('userData'));
-        const {data} = await axios.post(`${URL}/food/create`, _data, {
+        const {data} = await axios.get(`${URL}/location/`, {
+            headers:{
+                'auth-token': userData.auth_token,
+                'user-email' : userData.user.email
+            }
+        });
+
+        console.log('data', data);
+        return data;
+    } catch (error) {
+        //account creation had some error
+        return null;
+    }
+}
+
+export const getLocation = async (id) => {
+    try {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        const {data} = await axios.get(`${URL}/location/id`, {
+            headers:{
+                'auth-token': userData.auth_token,
+                'location-id' : id
+            }
+        });
+
+        console.log('data', data);
+        return data;
+    } catch (error) {
+        //account creation had some error
+        return null;
+    }
+}
+
+export const deleteLocation = async (id) => {
+    try {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        const {data} = await axios.delete(`${URL}/location/id`, {
+            headers:{
+                'auth-token': userData.auth_token,
+                'location-id' : id
+            }
+        });
+
+        console.log('data', data);
+        return data;
+    } catch (error) {
+        //account creation had some error
+        return null;
+    }
+}
+
+export const updateLocation = async (location) => {
+    try {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        const {data} = await axios.put(`${URL}/location/update`, location, {
             headers:{
                 'auth-token': userData.auth_token
             }
         });
+
+        console.log('data', data);
         return data;
     } catch (error) {
         //account creation had some error
@@ -16,79 +72,16 @@ export const createFood = async (_data) => {
     }
 }
 
-export const getFoods = async () => {
+export const addLocation = async (location) => {
     try {
         const userData = JSON.parse(localStorage.getItem('userData'));
-        const {data} = await axios.get(`${URL}/food/getfoods`, {
-            headers:{
-                'auth-token': userData.auth_token,
-                'email': userData.user.email
-            }
-        });
-        return data;
-    } catch (error) {
-        //account creation had some error
-        return null;
-    }
-}
-
-export const getAllFoods = async () => {
-    try {
-        const userData = JSON.parse(localStorage.getItem('userData'));
-        const {data} = await axios.get(`${URL}/food/get`, {
+        const {data} = await axios.post(`${URL}/location/create`, location, {
             headers:{
                 'auth-token': userData.auth_token
             }
         });
-        return data;
-    } catch (error) {
-        //account creation had some error
-        return null;
-    }
-}
 
-export const getFoodsLike = async (name) => {
-    console.log(name);
-    try {
-        const userData = JSON.parse(localStorage.getItem('userData'));
-        const {data} = await axios.get(`${URL}/food/get-like`, {
-            headers:{
-                'auth-token': userData.auth_token,
-                'food-name': name
-            }
-        });
-        return data;
-    } catch (error) {
-        //account creation had some error
-        return null;
-    }
-}
-
-export const deleteFood = async (id) => {
-    try {
-        const userData = JSON.parse(localStorage.getItem('userData'));
-        const {data} = await axios.delete(`${URL}/food/delete`, {
-            headers:{
-                'auth-token': userData.auth_token,
-                'food-id': id
-            }
-        });
-        return 'deleted';
-    } catch (error) {
-        //account creation had some error
-        return null;
-    }
-}
-
-export const getFood = async (id) => {
-    try {
-        const userData = JSON.parse(localStorage.getItem('userData'));
-        const {data} = await axios.get(`${URL}/food/getfood`, {
-            headers:{
-                'auth-token': userData.auth_token,
-                'food-id': id
-            }
-        });
+        console.log('data', data);
         return data;
     } catch (error) {
         //account creation had some error

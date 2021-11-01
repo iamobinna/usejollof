@@ -1,4 +1,5 @@
 const foodModel = require('../model/productModel');
+const vendorModel = require('../model/vendorModel');
 
 const getFood = async (req, res) => {
     const id = req.header('food-id');
@@ -13,6 +14,50 @@ const getFood = async (req, res) => {
         }
     } catch (error) {
         res.status(400).send('error');
+    }
+}
+
+const getAllFoods = async (req, res) => {
+    try {
+        const foods  = await foodModel.find();
+        if(foods)
+        {
+            res.status(200).send(foods);
+        }
+        else{
+            res.status(400).send('not found');
+        }
+    } catch (error) {
+        res.status(400).send('not found');
+    }
+}
+
+const getFoodsLike = async (req, res) => {
+
+    const name = req.header('food-name');
+    console.log(name);
+
+    try {
+        let foods  = await foodModel.find({name: {$regex: '.*' +  name + '.*'}});
+        if(foods)
+        {
+            let toSend = [];
+            for (let i = 0; i < foods.length; i++) {
+                const vendor = foods[i].vendor;
+                const details = await vendorModel.findOne({email: vendor});
+                if(details)
+                {
+                    toSend.push({food: foods[i], details: details});
+                }
+                console.log(toSend);
+            }
+            res.status(200).send(toSend);
+        }
+        else{
+            res.status(400).send('not found');
+        }
+    } catch (error) {
+        res.status(400).send('not found');
     }
 }
 
@@ -91,4 +136,4 @@ const createFood = async (req, res) => {
 }
 
 
-module.exports = {getFood, getFoods, createFood, deleteFood};
+module.exports = {getFood, getFoods, createFood, deleteFood, getAllFoods, getFoodsLike};

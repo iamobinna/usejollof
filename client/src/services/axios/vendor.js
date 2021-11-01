@@ -7,7 +7,7 @@ export const getVendor = async (id) => {
         const {data} = await axios.get(`${URL}/vendor/get`, {
             headers:{
                 'auth-token': userData.auth_token,
-                'user-email' : userData.user.email
+                'user-email' : id? id : userData.user.email
             }
         });
 

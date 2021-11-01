@@ -7,6 +7,8 @@ const requestRouter = require('./src/router/requestRouter.js');
 const vendorRouter = require('./src/router/vendorRouter.js');
 const categoryRouter = require('./src/router/categoryRouter.js');
 const foodRouter = require('./src/router/foodRouter.js');
+const orderRouter = require('./src/router/orderRouter.js');
+const locationRouter = require('./src/router/locationRouter.js');
 const mongoose = require('mongoose');
 
 dotenv.config();
@@ -21,9 +23,10 @@ app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.use('/account', accountRouter);
 app.use('/request', requestRouter);
 app.use('/vendor', vendorRouter);
-
+app.use('/order', orderRouter);
 app.use('/category', categoryRouter);
 app.use('/food', foodRouter);
+app.use('/location', locationRouter);
 
 //-ROUTES
 

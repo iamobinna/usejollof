@@ -27,9 +27,15 @@ const removeAccount = async (req, res) => {
 
 const updateAccount = async (req, res) => { //updation
     try {
-        res.status(200).send('updated');
+        const updated = await accountModel.findOneAndUpdate({email: req.body.email}, req.body.email);
+        if(updated){
+            res.status(200).send(updated);
+        }
+        else{
+            res.status(400).send('error');
+        }
     } catch (error) {
-        res.status(400).send('not deleted');
+        res.status(400).send('error');
     }
 }
 
@@ -105,5 +111,5 @@ const getUser = async (req, res) => {
         res.status(400).send(error);
     }
 }
-module.exports = {createAccount, login, test, getUser};
+module.exports = {createAccount, login, test, getUser, updateAccount};
 module.exports.default = router;

@@ -103,17 +103,23 @@ export class MapContainer extends Component {
               width: '100%'
             }}
             google={this.props.google}
-            initialCenter={{
+            initialCenter={
+              this.props.eLocation? this.props.eLocation :
+              {
               lat: this.state.mapCenter.lat,
               lng: this.state.mapCenter.lng
             }}
-            center={{
+            center={
+              this.props.eLocation? this.props.eLocation :
+              {
               lat: this.state.mapCenter.lat,
               lng: this.state.mapCenter.lng
             }}
           >
             <Marker 
-              position={{
+              position={
+                this.props.eLocation? this.props.eLocation :
+                {
                 lat: this.state.mapCenter.lat,
                 lng: this.state.mapCenter.lng
               }}

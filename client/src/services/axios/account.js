@@ -26,6 +26,26 @@ export const signIn = async (_data)  => {
     }
 }
 
+// export const updateLocation = async (_data) => {
+//     try {
+//         let userData = JSON.parse(localStorage.getItem('userData'));
+//         userData.user.locations = _data;
+//         const {data} = await axios.post(`${URL}/account/update`, userData.user, {
+//             headers:{
+//                 'auth-token': userData.auth_token
+//             }
+//         });
+//         //account made
+//         console.log('data', data);
+//         localStorage.setItem('userData', JSON.stringify({...userData, user: data}));
+//         window.dispatchEvent( new Event('update-account'));
+//         return 'logged in';
+//     } catch (error) {
+//         //account creation had some error
+//         return null;
+//     }
+// }
+
 export const updateBrowser = async () => {
     try {
         const userData = JSON.parse(localStorage.getItem('userData'));

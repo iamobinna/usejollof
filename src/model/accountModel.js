@@ -13,7 +13,11 @@ var accountSchema = new Schema({
     },
     type: String,
     favorite: [String],
-    wishlist: [String]
+    wishlist: [String],
+    locations: [{
+        latLng: {lat: Number, lng: Number},
+        address: String
+    }]
 });
 
 let accountModel = mongoose.model('accounts', accountSchema);
