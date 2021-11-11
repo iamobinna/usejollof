@@ -57,11 +57,11 @@ function App() {
                         </LocalizationProvider>
                     </Route>
             )
-        case 'deliveryBoy':
-            return(
-                <Route path = '/' exact component={PWA} />
+        // case 'deliveryBoy':
+        //     return(
+        //         <Route path = '/' exact component={PWA} />
                 
-                )
+        //         )
         default:
             return (
                 <Redirect to='/signin' />

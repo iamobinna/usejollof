@@ -64,8 +64,8 @@ const PopUp = ({data, setData, id, setID, rows, setRows}) => {
                     <div className="pop-up-col1">
                         {/* <span>12</span> */}
                         <span>{rows[id.index].item}</span>
-                        <span>{rows[id.index].user}</span>
                         <span>{rows[id.index].location}</span>
+                        <span>{rows[id.index].user}</span>
                         <span>{rows[id.index].cost}$</span>
                         <span>{rows[id.index].qty}</span>
                         <span>{rows[id.index].orderCreated}</span>

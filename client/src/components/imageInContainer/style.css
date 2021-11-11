@@ -1,7 +1,9 @@
 .image-in-container-width{
     width: 100%;
+    /* height: 100%; */
 }
 
 .image-in-container-height{
     height: 100%;
+    /* width: 100%; */
 }

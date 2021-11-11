@@ -9,6 +9,8 @@ const categoryRouter = require('./src/router/categoryRouter.js');
 const foodRouter = require('./src/router/foodRouter.js');
 const orderRouter = require('./src/router/orderRouter.js');
 const locationRouter = require('./src/router/locationRouter.js');
+const vehicleRouter = require('./src/router/vehicleRouter.js');
+const deliveryBoyRouter = require('./src/router/deliveryBoyRouter.js');
 const mongoose = require('mongoose');
 
 dotenv.config();
@@ -27,6 +29,8 @@ app.use('/order', orderRouter);
 app.use('/category', categoryRouter);
 app.use('/food', foodRouter);
 app.use('/location', locationRouter);
+app.use('/vehicle', vehicleRouter);
+app.use('/deliveryboy', deliveryBoyRouter);
 
 //-ROUTES
 
