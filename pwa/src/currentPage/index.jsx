@@ -15,7 +15,7 @@ const Index = ({currentIndex, user, setUser}) => {
     const [first, setFirst] = useState(true);
     const [_first, _setFirst] = useState(true);
     const [geoID, setGeoID] = useState(null);
-    const [allowed, setAllowed] = useState(false);
+    const [allowed, setAllowed] = useState(true);
     const [alert, setAlert] = useState(null);
     const [location, setLocation] = useState({
         lat: null,
@@ -35,33 +35,28 @@ const Index = ({currentIndex, user, setUser}) => {
             setSocket(io(URL, {
                 query: {token: user.auth_token}
             }));
-            if (navigator.geolocation) {
-                navigator.permissions
-                  .query({ name: "geolocation" })
-                  .then(function (result) {
-                    if (result.state === "granted") {
-                      console.log(result.state);
-                      trackLocation();
-                      setAllowed(true);
-                      
-                      //If granted then you can directly call your function here
-                    } else if (result.state === "prompt") {
-                      console.log(result.state);
-                      trackLocation();
-                      setAllowed(true);
-                    } else if (result.state === "denied") {
-                      //If denied then you have to show instructions to enable location
-                      setAlert('Allow location from settings');
-                    //   alert("Why bro");
-                    }
-                    result.onchange = function () {
-                      console.log(result.state);
-                    };
-                  });
-              } else {
-                  setAlert('Location cannot be shared from your device')
-                // alert("Sorry Not available!");
-              }
+            trackLocation();
+            // if (navigator.geolocation) {
+            //     navigator.permissions
+            //       .query({ name: "geolocation" })
+            //       .then(function (result) {
+            //         if (result.state === "granted") {
+            //           console.log(result.state);
+            //           trackLocation();
+            //           setAllowed(true);  
+            //         } else if (result.state === "prompt") {
+            //           console.log(result.state);
+            //           setAllowed(true);
+            //         } else if (result.state === "denied") {
+            //           setAlert('Allow location from settings');
+            //         }
+            //         result.onchange = function () {
+            //           console.log(result.state);
+            //         };
+            //       });
+            //   } else {
+            //       setAlert('Location cannot be shared from your device');
+            //   }
         }
 
         if(!user || user === null){
@@ -82,7 +77,7 @@ const Index = ({currentIndex, user, setUser}) => {
             }
         )
         },
-        error => console.log(error)
+        error => {console.log(error); setAllowed(false); setAlert('Allow location from settings') }
         );
         setGeoID(id);
     }
