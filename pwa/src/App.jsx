@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react';
-import LeftBar from '../../components/deliveryDashboard/leftBar';
+import React, {useState, useEffect} from 'react';
+import LeftBar from './components/leftBar';
 import './styles/style.css';
 // import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Currentpage from './currentPage';
@@ -7,13 +7,13 @@ import Currentpage from './currentPage';
 const Index = () => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('driverData'))?.user);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('driverData'))? JSON.parse(localStorage.getItem('driverData')) : null);
     
     window.addEventListener('sign-out-driver', () => {
         setUser('');
     })
     window.addEventListener('update-account-driver', () => {
-        const bla = JSON.parse(localStorage.getItem('driverData'))?.user;
+        const bla = JSON.parse(localStorage.getItem('driverData'))? JSON.parse(localStorage.getItem('driverData')) : null;
         console.log('bla', bla);
         setUser(bla);
     });

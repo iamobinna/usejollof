@@ -7,6 +7,7 @@ var deliverBoySchema = new Schema({
     name: {type: String, required: true},
     password: {type: String, required: true},
     phoneNumber: {type: Number},
+    online: {type: Boolean, default: false},
     picUrl: String,
     gender: String,
     vehicle: String,

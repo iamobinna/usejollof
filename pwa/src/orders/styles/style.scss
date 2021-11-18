@@ -20,7 +20,7 @@
 }
 
 .delivery-order-button{
-    background: linear-gradient(to right, green, rgb(0, 128, 90));
+    background: linear-gradient(to right, green, rgb(0, 128, 90)) ;
     color: white;
     padding: 10px;
     cursor: pointer;
@@ -28,6 +28,6 @@
 }
 
 .delivery-order-button:active{
-    background: linear-gradient(to right, rgb(0, 128, 90), green);
+    background: linear-gradient(to right,green, green);
 
 }

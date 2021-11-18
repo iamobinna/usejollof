@@ -41,7 +41,7 @@
 }
 
 .delivery-order-button:active {
-  background: -webkit-gradient(linear, left top, right top, from(#00805a), to(green));
-  background: linear-gradient(to right, #00805a, green);
+  background: -webkit-gradient(linear, left top, right top, from(green), to(green));
+  background: linear-gradient(to right, green, green);
 }
 /*# sourceMappingURL=style.css.map */

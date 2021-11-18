@@ -98,6 +98,7 @@ const  createAccount = async (req, res) => {
 }
 
 const login = async (req, res) => {
+    console.log('here');
     
     try {
         //Check email

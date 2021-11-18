@@ -1,4 +1,12 @@
 const express = require('express');
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server, {
+    cors: {
+        origin: '*'
+    }
+});
+const file1 = require('./src/sockets/file1')(io);
 const cors = require('cors');
 const path = require('path');
 const dotenv = require('dotenv');
@@ -13,9 +21,10 @@ const vehicleRouter = require('./src/router/vehicleRouter.js');
 const deliveryBoyRouter = require('./src/router/deliveryBoyRouter.js');
 const mongoose = require('mongoose');
 
+///SOCKET IS CONNECTING MULTIPLE TIMES
+
 dotenv.config();
 
-const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
@@ -42,6 +51,11 @@ app.use(express.static(path.join(__dirname ,'/client/build')));
      res.sendFile(path.join(__dirname + '/client/build/index.html'))
  });
 
+app.use(express.static(path.join(__dirname ,'/pwa/build')));
+ app.get('mobile', (req, res) => {
+     res.sendFile(path.join(__dirname + '/pwa/build/index.html'))
+ });
+
  mongoose.connect(CONNECTION_URL)
- .then(() => app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
+ .then(() => server.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
  .catch((error) => console.log(`${error} did not connect`));

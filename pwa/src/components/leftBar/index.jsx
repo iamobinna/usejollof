@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { openInAppLink } from "../../../services/openLinks";
+// import { openInAppLink } from "../../../services/openLinks";
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import ListAltIcon from '@mui/icons-material/ListAlt';
