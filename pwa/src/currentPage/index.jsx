@@ -77,7 +77,7 @@ const Index = ({currentIndex, user, setUser}) => {
             }
         )
         },
-        error => {console.log(error); setAllowed(false); setAlert('Allow location from settings') }
+        error => {console.log(error); setAllowed(false); setAlert(error) }
         );
         setGeoID(id);
     }
