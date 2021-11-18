@@ -4,6 +4,7 @@ import Map from '../maps';
 import Orders from '../orders';
 import './styles/style.css';
 import {io} from 'socket.io-client';
+import Alert from '@mui/material/Alert';
 import { URL } from "../urls";
 // import {socket} from '../services/socket';
 
@@ -14,6 +15,8 @@ const Index = ({currentIndex, user, setUser}) => {
     const [first, setFirst] = useState(true);
     const [_first, _setFirst] = useState(true);
     const [geoID, setGeoID] = useState(null);
+    const [allowed, setAllowed] = useState(false);
+    const [alert, setAlert] = useState(null);
     const [location, setLocation] = useState({
         lat: null,
         lng: null
@@ -32,19 +35,33 @@ const Index = ({currentIndex, user, setUser}) => {
             setSocket(io(URL, {
                 query: {token: user.auth_token}
             }));
-            console.log('Setting navigator');
-            const id = navigator.geolocation.watchPosition(
-                data=> {
-                    setLocation(
-                        {
-                            lat: data.coords.latitude,
-                            lng: data.coords.longitude
-                        }
-                    )
-                },
-                error => console.log(error)
-            );
-            setGeoID(id);
+            if (navigator.geolocation) {
+                navigator.permissions
+                  .query({ name: "geolocation" })
+                  .then(function (result) {
+                    if (result.state === "granted") {
+                      console.log(result.state);
+                      trackLocation();
+                      setAllowed(true);
+                      
+                      //If granted then you can directly call your function here
+                    } else if (result.state === "prompt") {
+                      console.log(result.state);
+                      trackLocation();
+                      setAllowed(true);
+                    } else if (result.state === "denied") {
+                      //If denied then you have to show instructions to enable location
+                      setAlert('Allow location from settings');
+                    //   alert("Why bro");
+                    }
+                    result.onchange = function () {
+                      console.log(result.state);
+                    };
+                  });
+              } else {
+                  setAlert('Location cannot be shared from your device')
+                // alert("Sorry Not available!");
+              }
         }
 
         if(!user || user === null){
@@ -54,6 +71,22 @@ const Index = ({currentIndex, user, setUser}) => {
         }
     }, [user]);
 
+    const trackLocation = () => {
+        console.log('Setting navigator');
+        const id = navigator.geolocation.watchPosition(
+        data=> {
+            setLocation(
+            {
+                lat: data.coords.latitude,
+                lng: data.coords.longitude
+            }
+        )
+        },
+        error => console.log(error)
+        );
+        setGeoID(id);
+    }
+
 
     useEffect(() => {
         if(socket){
@@ -62,7 +95,7 @@ const Index = ({currentIndex, user, setUser}) => {
     }, [location]);
 
     useEffect(() => {
-        if(socket && _first){
+        if(socket && _first && allowed){
             _setFirst(false);
             
             socket.emit('serverSaveDriver', {
@@ -73,7 +106,7 @@ const Index = ({currentIndex, user, setUser}) => {
                 }
             })
         }
-    }, [socket]);
+    }, [socket, allowed]);
 
     if(!user || user.user === null){
         return (
@@ -85,6 +118,10 @@ const Index = ({currentIndex, user, setUser}) => {
 
     return (
         <div className="delivery-main">
+            {
+                alert &&
+                <Alert style={{marginBottom: '10px'}} severity="info">{alert}</Alert>
+            }
             {tabs.map((tab) => {
                 if (tab.id === currentIndex) {
                     return (
