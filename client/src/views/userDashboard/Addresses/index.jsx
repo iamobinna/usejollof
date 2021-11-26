@@ -26,7 +26,7 @@ const PopUp = ({open, setOpen, addLocation, eLocation, setELocation, updateLocat
         <div className="pop-up-container">
             <div className="pop-up box" style={{minWidth: '500px'}} >
                 <CancelIcon className='close-btn' onClick = {() => {setOpen(false); setELocation(null)}} />
-                    <GoogleMap eLocation={eLocation.location.latLng} setLocation={setLocation} />
+                    <GoogleMap eLocation={eLocation?.location?.latLng} setLocation={setLocation} />
                 <div className="pop-up-buttons">
                     <div className='button button-hover' onClick={() => {eLocation? updateLocation(location, eLocation._id) : addLocation(location); setOpen(false)}} >
                         <div className="button-bg" style={{background: 'green', zIndex: '0'}} ></div>

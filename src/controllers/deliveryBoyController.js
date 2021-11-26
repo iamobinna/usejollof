@@ -104,6 +104,7 @@ const login = async (req, res) => {
         //Check email
         const emailExist = await deliveryBoyModel.findOne({email: req.body.email});
         if(!emailExist) return res.status(400).send('EMAIL or passsword is wrong');
+        if(emailExist.online === true) return res.status(400).send('email is logged in somewhere else');
         
         //Check Password
         const validPass = await bcrypt.compare(req.body.password, emailExist.password);

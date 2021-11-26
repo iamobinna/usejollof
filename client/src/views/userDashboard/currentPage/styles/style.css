@@ -112,9 +112,9 @@
 }
 
 .searched-food-img {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  max-width: 200px;
+  overflow: hidden;
+  height: 200px;
 }
 
 .searched-food {

@@ -1,12 +1,15 @@
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
+const auth = require('./src/authentication');
 const io = require('socket.io')(server, {
     cors: {
         origin: '*'
     }
 });
-const file1 = require('./src/sockets/file1')(io);
+let boys = {};
+const file1 = require('./src/sockets/file1')(io, boys);
+const orderModel = require('./src/model/orderModel');
 const cors = require('cors');
 const path = require('path');
 const dotenv = require('dotenv');
@@ -20,6 +23,28 @@ const locationRouter = require('./src/router/locationRouter.js');
 const vehicleRouter = require('./src/router/vehicleRouter.js');
 const deliveryBoyRouter = require('./src/router/deliveryBoyRouter.js');
 const mongoose = require('mongoose');
+const {toSearchNearestDeliveryBoy} = require('./src/sockets/deliveryAssigner');
+const DeliveryRouter = express.Router();
+DeliveryRouter.post('/', auth ,async (req, res) => {
+    const orderID = req.header('order-id');
+    const vendorLocation =  req.body.vendorLatLng;
+    try {
+        const boy_id = toSearchNearestDeliveryBoy(boys, vendorLocation, io, orderID);
+        
+        console.log('number of boys', Object.keys(boys).length);
+        if(boy_id !== null && boy_id !== undefined){
+            //found
+            const updated = await orderModel.findByIdAndUpdate(orderID, {assignedTo: boy_id});
+            res.status(200).send('assigned');
+        }else{
+            console.log('error in else');
+            res.status(400).send('error');
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(400).send('error');
+    }
+});
 
 ///SOCKET IS CONNECTING MULTIPLE TIMES
 
@@ -40,11 +65,14 @@ app.use('/food', foodRouter);
 app.use('/location', locationRouter);
 app.use('/vehicle', vehicleRouter);
 app.use('/deliveryboy', deliveryBoyRouter);
+app.use('/assign',DeliveryRouter );
 
 //-ROUTES
 
 const PORT = process.env.PORT || 5000;
 const CONNECTION_URL = process.env.MONGO_DB_URI;
+
+//DELIVERY BOYS ARE SAVED CORRECTLY NOW ADD REQUEST
 
 
 app.use('/mobile',express.static(path.join(__dirname ,'/pwa/build')));

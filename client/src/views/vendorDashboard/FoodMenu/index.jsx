@@ -334,7 +334,10 @@ const Index = () => {
                 id &&
                 <PopUp id={id} _deleteFood={_deleteFood} setID={setID} />
             }
-            <AddPopUp add={add} foods={foods} setFoods={setFoods} setAdd={setAdd} />
+            {
+                add &&
+                <AddPopUp add={add} foods={foods} setFoods={setFoods} setAdd={setAdd} />
+            }
             <div className='button button-hover vendor-menu-add-btn' onClick={() => {setAdd(true)}} >
                 <div className="button-bg" style={{background: 'blue', zIndex: '0'}} ></div>
                 <h4 className="button-text" style={{position: 'relative'}} >Add</h4>

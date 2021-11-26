@@ -17,16 +17,38 @@ const createOrder = async (req, res) => {
     }
 }
 
+const getOrder = async(req, res) => {
+    const productID = req.header('order-id');
+    try {
+        if(productID){
+            const order = await orderModel.findById(productID);
+            if(order){
+                res.status(200).send(order);
+            }else{
+                res.status(400).send('error');
+            }
+        }else{
+            res.status(400).send('error');
+        }
+    } catch (error) {
+        res.status(400).send('error');
+    }
+}
+
 const getOrders = async (req, res) => {
     const email = req.header('user-email');
     const vendor = req.header('vendor-email');
+    const deliveryBoy = req.header('driver-id');
     try {
         let orders = null;
         if(email)
         {
             orders = await orderModel.find({user: email});
-        }else{
-            orders = await orderModel.find({vendor});
+        }else if(deliveryBoy){
+            orders = await orderModel.find({assignedTo: deliveryBoy});
+        }
+        else{
+            orders = await orderModel.find({vendor, assignedTo: null});
         }
         if(orders)
         {
@@ -55,4 +77,4 @@ const updateOrder = async (req, res) => {
     }
 }
 
-module.exports = {createOrder, getOrders, updateOrder};
+module.exports = {createOrder, getOrders, updateOrder, getOrder};

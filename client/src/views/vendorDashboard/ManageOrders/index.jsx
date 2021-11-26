@@ -7,9 +7,15 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { getOrders, updateOrder } from '../../../services/axios/order';
+import { assignDeliveryBoy } from '../../../services/axios/assign';
+import Alert from '@mui/material/Alert';
+import { Button } from '@mui/material';
+
 
 const PopUp = ({data, setData, id, setID, rows, setRows}) => {
     const [age, setAge] = useState('pending');
+    const [sending, setSending] = useState(false);
+    const [alert, setAlert] = useState(null);
     
     useEffect(() => {
         if(id)
@@ -21,6 +27,44 @@ const PopUp = ({data, setData, id, setID, rows, setRows}) => {
     if(!id)
     {
         return null;
+    }
+
+    const driverAssigner = async () => {
+        setSending(true);
+        // let userLatLng = null;
+        let vendorLatLng = null;
+        let dataIndex = null;
+        for (let i = 0; i < data.length; i++) {
+            if(rows[id.index]._id === data[i]._id ){
+                // userLatLng = data[i].userLocation.latLng;
+                console.log(data[i].vendorLocation.latLng);
+                vendorLatLng = data[i].vendorLocation.latLng;
+                dataIndex = i;
+                break;
+            }
+        }
+        const res = await assignDeliveryBoy(vendorLatLng, rows[id.index]._id);
+        if(res){
+            setAlert('Driver assigned, driver will be here any minute');
+            function delay(time) {
+                return new Promise(resolve => setTimeout(resolve, time));
+              }
+              
+              delay(1000).then(() => {
+                  //update order
+                    let arr = [...rows];
+                    arr.splice(id.index, 1);
+                    setRows(arr);
+
+                    arr = [...data];
+                    arr.splice(dataIndex, 1);
+                    setData(arr);
+              });
+        }else{
+            //failed
+            setAlert('No Driver found, try after sometime');
+            setSending(false);
+        }
     }
 
     const handleChange = async (event) => {
@@ -50,51 +94,59 @@ const PopUp = ({data, setData, id, setID, rows, setRows}) => {
         <div className="pop-up-container">
             <div className="pop-up box">
                 <CancelIcon className='close-btn' onClick = {() => setID(null)} />
-                <div className="pop-up-upper">
-                    <div className="pop-up-col1">
-                        {/* <span>Order No.</span> */}
-                        <span>Item</span>
-                        <span>Location</span>
-                        <span>Order From</span>
-                        <span>Price</span>
-                        <span>No of {rows[id.index].item}</span>
-                        <span>Order placed at</span>
-                        <span>Order state</span>
-                    </div>
-                    <div className="pop-up-col1">
-                        {/* <span>12</span> */}
-                        <span>{rows[id.index].item}</span>
-                        <span>{rows[id.index].location}</span>
-                        <span>{rows[id.index].user}</span>
-                        <span>{rows[id.index].cost}$</span>
-                        <span>{rows[id.index].qty}</span>
-                        <span>{rows[id.index].orderCreated}</span>
-                    </div>
-                </div>
-                <Select
-                    labelId="demo-simple-select-label"
-                    size='small'
-                    id="demo-simple-select"
-                    value={age}
-                    label="Order state"
-                    style={{marginTop: '10px'}}
-                    onChange={handleChange}
-                    >
-                        <MenuItem value={'pending'}>Pending</MenuItem>
-                        <MenuItem value={'ready'}>Ready</MenuItem>
-                        <MenuItem value={'cooking'}>Cooking</MenuItem>
-                        <MenuItem value={'onTheWay'}>On the way</MenuItem>
-                </Select>
-                <div className="pop-up-buttons">
-                    <div className='button button-2 '>
-                        <h4 className="button-text">Driver</h4>
-                        <DeliveryDiningIcon style={{color: 'red'}} className='button-icon'/>
-                    </div>
-                    <div className='button button-2 '>
-                        <h4 className="button-text">Delivery</h4>
-                        <LocalShippingIcon style={{color: 'red'}} className='button-icon'/>
-                    </div>
-                </div>
+                {
+                    alert && <Alert severity='info' >{alert}</Alert>
+                }
+                {
+                    sending? <> <Button onClick={() => setID(null)} >OKAY</Button> </> :
+                    <>
+                        <div className="pop-up-upper">
+                            <div className="pop-up-col1">
+                                {/* <span>Order No.</span> */}
+                                <span>Item</span>
+                                <span>Location</span>
+                                <span>Order From</span>
+                                <span>Price</span>
+                                <span>No of {rows[id.index].item}</span>
+                                <span>Order placed at</span>
+                                <span>Order state</span>
+                            </div>
+                            <div className="pop-up-col1">
+                                {/* <span>12</span> */}
+                                <span>{rows[id.index].item}</span>
+                                <span>{rows[id.index].location}</span>
+                                <span>{rows[id.index].user}</span>
+                                <span>{rows[id.index].cost}$</span>
+                                <span>{rows[id.index].qty}</span>
+                                <span>{rows[id.index].orderCreated}</span>
+                            </div>
+                        </div>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            size='small'
+                            id="demo-simple-select"
+                            value={age}
+                            label="Order state"
+                            style={{marginTop: '10px'}}
+                            onChange={handleChange}
+                            >
+                                <MenuItem value={'pending'}>Pending</MenuItem>
+                                <MenuItem value={'ready'}>Ready</MenuItem>
+                                <MenuItem value={'cooking'}>Cooking</MenuItem>
+                                <MenuItem value={'onTheWay'}>On the way</MenuItem>
+                        </Select>
+                        <div className="pop-up-buttons">
+                            <div className='button button-2 '>
+                                <h4 className="button-text">Driver</h4>
+                                <DeliveryDiningIcon style={{color: 'red'}} className='button-icon'/>
+                            </div>
+                            <div className='button button-2 ' onClick={() => driverAssigner()} >
+                                <h4 className="button-text">Delivery</h4>
+                                <LocalShippingIcon style={{color: 'red'}} className='button-icon'/>
+                            </div>
+                        </div>
+                    </>
+                }
             </div>
         </div>
     )
@@ -118,20 +170,10 @@ const Index = () => {
     ];
 
     const [rows, setRows] = useState([
-        {id: 1, orderNumber: '12', item: 'Burger', location: 'Karachi', state: 'pending'},
-        {id: 2, orderNumber: '12', item: 'Burger', location: 'Karachi', state: 'pending'},
-        {id: 3, orderNumber: '12', item: 'Burger', location: 'Karachi', state: 'pending'},
-        {id: 4, orderNumber: '12', item: 'Burger', location: 'Karachi', state: 'pending'},
-        {id: 5, orderNumber: '12', item: 'Burger', location: 'Karachi', state: 'pending'},
-    ]);
+        {id: 1, orderNumber: '12', item: 'Burger', location: 'Karachi', state: 'pending'},]);
 
     const [rows1, setRows1] = useState([
-        {id: 6, orderNumber: '13', item: 'Burger', location: 'Karachi', state: 'pending'},
-        {id: 7, orderNumber: '14', item: 'Burger', location: 'Karachi', state: 'pending'},
-        {id: 8, orderNumber: '15', item: 'Burger', location: 'Karachi', state: 'pending'},
-        {id: 9, orderNumber: '16', item: 'Burger', location: 'Karachi', state: 'pending'},
-        {id: 10, orderNumber: '17', item: 'Burger', location: 'Karachi', state: 'pending'},
-    ]);
+        {id: 6, orderNumber: '13', item: 'Burger', location: 'Karachi', state: 'pending'},]);
 
     const [data , setData] = useState([]);
 
@@ -151,7 +193,7 @@ const Index = () => {
                 let myDate = (dateObj.getUTCFullYear()) + "/" + (dateObj.getMonth() + 1)+ "/" + (dateObj.getUTCDate());
                 const toPush = {
                     _id: data[i]._id,
-                    location: data[i].location.address,
+                    location: data[i].userLocation.address,
                     item: data[i].products.foodId.name,
                     orderCreated: myDate,
                     user: data[i].user,
@@ -252,7 +294,10 @@ const Index = () => {
     return (
         <div className='vendor-orders' >
             <h3>On going orders</h3>
-            <PopUp data={data} setData={setData} id={id} setID={setID} rows={rows} setRows={setRows} />
+            {
+                id &&
+                <PopUp data={data} setData={setData} id={id} setID={setID} rows={rows} setRows={setRows} />
+            }
             <div className="card" style={{width: 'fit-content', maxWidth: '100%'}}>
                 <Table rows={rows} columns={columns} clickHandler={clickHandler} />
             </div>

@@ -93,7 +93,10 @@ $darkGrey: rgb(148, 148, 148);
 }
 
 .searched-food-img{
-    flex: 1;
+    // flex: 1;
+    max-width: 200px;
+    overflow: hidden;
+    height: 200px;
 }
 
 .searched-food{

@@ -27,6 +27,7 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import { getLocations } from "../../../services/axios/location";
 import GoogleMap from "../../../components/GoogleMap";
+import { getVendor } from "../../../services/axios/vendor";
 
 const PopUp = ({food, setFood, orderNow, orderPlaced, setOrderPlaced}) => {
 
@@ -71,10 +72,13 @@ const PopUp = ({food, setFood, orderNow, orderPlaced, setOrderPlaced}) => {
                 }
                 {
                     !loading && <>
+                    <form onSubmit={() => {orderNow(food, qty, eLocation); setLoading(true)}}>
+
                     <TextField value={qty} onChange={e => setQty(e.target.value)} id="outlined-basic" type='number' size='small' label={`How many ${food.food.name} you want to order?`} variant="outlined" />
                     <FormControl fullWidth>
-                        <InputLabel size='small' id="demo-simple-select-label">Your locations</InputLabel>
+                        <InputLabel required size='small' id="demo-simple-select-label">Your locations</InputLabel>
                         <Select
+                        required
                         labelId="demo-simple-select-label"
                         size='small'
                         id="demo-simple-select"
@@ -97,9 +101,10 @@ const PopUp = ({food, setFood, orderNow, orderPlaced, setOrderPlaced}) => {
                     <TextField id="outlined-basic" type='number' size='small' label='Card Number (beta)' variant="outlined" />
                     
                     <div className="flex" style={{marginTop: '20px'}} >
-                        <Button variant='outlined' onClick={() => {orderNow(food, qty, eLocation); setLoading(true)}} >Confirm order</Button>
+                        <Button variant='outlined' type='submit' >Confirm order</Button>
                         <Button variant='outlined' onClick={() => setFood(null)} >Cancel</Button>
                     </div>
+                    </form>
                 </>
             }
             </div>
@@ -154,12 +159,14 @@ const Index = ({currentIndex, user}) => {
 
     const orderNow = async (food, qty, location) => {
         const userData = JSON.parse(localStorage.getItem('userData'));
+        const vendor = await getVendor(food.details.email);
         console.log(food);
         const order = {
             vendor: food.details.email,
             user: userData.user.email,
+            vendorLocation: vendor.location,
             cost: food.food.price * qty,
-            location,
+            userLocation: location,
             products: {foodId: food.food, qty: qty},
         };
         const data = await createOrder(order);
