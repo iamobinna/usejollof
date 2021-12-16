@@ -7,59 +7,85 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { getWallet, getWalletRequests, getWallets, updateWallet } from '../../../services/axios/adminWallet';
+// import CancelIcon from '@mui/icons-material/Cancel';
+import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
+import Alert from '@mui/material/Alert';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 const Index = () => {
 
     const columns = [
         {id: 'name', label: 'Name', minWidth: ''},
         {id: 'email', label: 'E-mail', minWidth: ''},
-        {id: 'location', label: 'Location', minWidth: ''},
         {id: 'type', label: 'Type', minWidth: ''},
-        {id: 'dateOfRequest', label: 'Date of Request', minWidth: ''},
-        {id: 'accountType', label: 'Accouaccount', Type: 'Credit'}
+        {id: 'dateCreated', label: 'Date of Request', minWidth: ''},
+        {id: 'accountType', label: 'Account Type', minWidth: ''},
+        {id: 'action', label: 'Actions', minWidth: ''},
     ];
 
-    const [data, setData] = useState([
-        {name: 'Shah Fahad', email: 'fahad@gmail.com', location: 'Karachi', type: 'Rider', dateOfRequest: '7-7-2012', accountType: 'Credit'},
-        {name: 'Shah Fahad', email: 'fahad@gmail.com', location: 'Karachi', type: 'Rider', dateOfRequest: '7-7-2012', accountType: 'Debit'},
-        {name: 'Shah Fahad', email: 'fahad@gmail.com', location: 'Karachi', type: 'Rider', dateOfRequest: '7-7-2012', accountType: 'Credit'},
-        {name: 'Shah Fahad', email: 'fahad@gmail.com', location: 'Karachi', type: 'Rider', dateOfRequest: '7-7-2012', accountType: 'Debit'},
-        {name: 'Shah Fahad', email: 'fahad@gmail.com', location: 'Karachi', type: 'Rider', dateOfRequest: '7-7-2012', accountType: 'Credit'},
-        {name: 'Shah Fahad', email: 'fahad@gmail.com', location: 'Karachi', type: 'Rider', dateOfRequest: '7-7-2012', accountType: 'Debit'},
-        {name: 'Shah Fahad', email: 'fahad@gmail.com', location: 'Karachi', type: 'Rider', dateOfRequest: '7-7-2012', accountType: 'Credit'},
-    ]);
+    const [requests, setRequests] = useState([]);
+    const [rawRequests, setRawRequests] = useState([]);
+    const [rawWallets, setRawWallets] = useState([]);
+    const [sending, setSending] = useState(false);
+    const [alert, setAlert] = useState(null);
 
     const userColumns = [
         {id: 'name', label: 'Name', minWidth: ''},
         {id: 'email', label: 'E-mail', minWidth: ''},
-        {id: 'location', label: 'Location', minWidth: ''},
         {id: 'type', label: 'Type', minWidth: ''},
         {id: 'accountType', label: 'Account Type', minWidth: ''},
         {id: 'amount', label: 'Amount', minWidth: ''},
         {id: 'creditAmount', label: 'Credit Amount', minWidth: ''}
     ];
 
+    const [id, setID] = useState(null);
+
     const [value, setValue] = useState('not selected');
     const [age, setAge] = useState('all');
     const [emails, setEmails] = useState([]);
 
-    const [users, setUsers] = useState([
-        {id: 0, name: 'Shah Fahad',location: 'Karachi' ,email: 'fahad@gmail.com', type: 'rider', amount: '$ 2500', accountType: 'Debit'},
-        {id: 1, name: 'Shah Fahad',location: 'New York' ,email: 'saad@gmail.com', type: 'vendor', amount: '$ 2500', accountType: 'Credit', creditAmount: '$ 100$'},
-        {id: 2, name: 'Shah Fahad',location: 'Malir' ,email: 'naeem@gmail.com', type: 'vendor', amount: '$ 2500', accountType: 'Debit'},
-        {id: 3, name: 'Shah Fahad',location: 'Karachi' ,email: 'obinna@gmail.com', type: 'rider', amount: '$ 2500', accountType: 'Credit', creditAmount: '$ 100$'},
-        {id: 4, name: 'Shah Fahad',location: 'Malir' ,email: 'awoofa@gmail.com', type: 'rider', amount: '$ 2500', accountType: 'Debit'},
-        {id: 5, name: 'Shah Fahad',location: 'Karachi' ,email: 'shahfahad@gmail.com', type: 'user', amount: '$ 2500', accountType: 'Debit'},
-        {id: 6, name: 'Shah Fahad',location: 'New York' ,email: 'fahad091@gmail.com', type: 'partner', amount: '$ 2500', accountType: 'Debit'},
-        {id: 7, name: 'Shah Fahad',location: 'Karachi' ,email: 'fahadiffi@gmail.com', type: 'partner', amount: '$ 2500', accountType: 'Debit'},
-        {id: 8, name: 'Shah Fahad',location: 'Lahore' ,email: 'fahadshah@gmail.com', type: 'rider', amount: '$ 2500', accountType: 'Credit', creditAmount: '$ 100$'},
-        {id: 9, name: 'Shah Fahad',location: 'Multan' ,email: 'shayan@gmail.com', type: 'rider', amount: '$ 2500', accountType: 'Debit'},
-        {id: 10, name: 'Shah Fahad',location: 'Karachi' ,email: 'kshayan091@gmail.com', type: 'user', amount: '$ 2500', accountType: 'Debit'},
-        {id: 11, name: 'Shah Fahad',location: 'Multan' ,email: 'bro@gmail.com', type: 'partner', amount: '$ 2500', accountType: 'Credit', creditAmount: '$ 100$'},
-    
-    ]);
+    const [wallets, setWallets] = useState([]);
 
-    const [filteredUsers, setFilteredUsers] = useState(users);
+    const [filteredUsers, setFilteredUsers] = useState(wallets);
+    const fetch = async () => {
+        const wallets = await getWallets();
+        if(wallets){
+            setRawWallets(wallets);
+            let arr = [];
+            for (let i = 0; i < wallets.length; i++) {
+                const dateObj = new Date(wallets[i].wallet.dateCreated);
+                let myDate = (dateObj.getUTCFullYear()) + "/" + (dateObj.getMonth() + 1)+ "/" + (dateObj.getUTCDate());
+                // wallets[i].wallet.dateCreated = myDate;
+                arr.push({...wallets[i].user, ...wallets[i].wallet, dateCreated: myDate});
+            }
+            // console.log('wallets', arr);
+            setWallets(arr);
+            setFilteredUsers(arr);
+        }
+
+        const requests = await getWalletRequests();
+        if(requests){
+            setRawRequests(requests);
+            let arr = [];
+            for (let i = 0; i < requests.length; i++) {
+                const dateObj = new Date(requests[i].wallet.dateCreated);
+                let myDate = (dateObj.getUTCFullYear()) + "/" + (dateObj.getMonth() + 1)+ "/" + (dateObj.getUTCDate());
+                // requests[i].wallet.dateCreated = myDate;
+                arr.push({...requests[i].user, ...requests[i].wallet, dateCreated: myDate});
+            }
+            // console.log('requests', arr);
+            setRequests(arr);
+        }
+    }
+
+    const clickHandler = (id) => {
+        setID(id);
+    }
+
+    useEffect(() => {
+        fetch();
+    }, []);
 
     useEffect(() => {
         let arr = [];
@@ -76,8 +102,8 @@ const Index = () => {
         {
             console.log('newValue', newValue.label);
             let index = -1;
-            for (let i = 0; i < users.length; i++) {
-                if(users[i].email === newValue.label)
+            for (let i = 0; i < wallets.length; i++) {
+                if(wallets[i].email === newValue.label)
                 {
                     index = i;
                     break;
@@ -86,11 +112,11 @@ const Index = () => {
             if(index === -1)
                 return;
             console.log('index', index);
-            console.log('user', users[index]);
-            setFilteredUsers([users[index]]);
+            console.log('user', wallets[index]);
+            setFilteredUsers([wallets[index]]);
         }
         else{
-            setFilteredUsers(users);
+            setFilteredUsers(wallets);
         }
     }
 
@@ -98,20 +124,87 @@ const Index = () => {
         setAge(event.target.value);
         if(event.target.value === 'all')
         {
-            setFilteredUsers(users);
+            setFilteredUsers(wallets);
             return;
         }
 
         const filter = event.target.value;
-        let arr = users.filter(user => user.type === filter);
+        let arr = wallets.filter(user => user.type === filter);
         setFilteredUsers(arr);
     };
+
+    const Action = ({id, index}) => {
+
+        const Reject = async () => {
+            if(id && !sending)
+            {
+                setSending(true);
+                setAlert('Sending')
+                let find = rawRequests.find(obj => obj.wallet._id === id)?.wallet;
+                if(find){
+                    find.answered = true;
+                    find.accepted =false;
+                }
+                const update = await updateWallet(find);
+                if(update){
+                    //updated
+                    console.log('updated wallet', update);
+                    await fetch();
+                    setAlert('updated')
+                }else{
+                    setAlert('There was some error updating')
+                }
+                setSending(false);
+            }
+        }
+
+        const Accept = async () => {
+            if(id && !sending)
+            {
+                setSending(true);
+                setAlert('Sending')
+                let find = rawRequests.find(obj => obj.wallet._id === id)?.wallet;
+                if(find){
+                    find.answered = true;
+                    find.accepted = true;
+                }
+                const update = await updateWallet(find);
+                if(update){
+                    //updated
+                    console.log('updated wallet', update);
+                    await fetch();
+                    setAlert('updated')
+                }else{
+                    setAlert('There was some error updating')
+                }
+                setSending(false);
+            }
+        }
+        return(
+            <div className="vendor-order-buttons">
+                <div className='button button-2 ' onClick={() => Accept()} >
+                    <h4 className="button-text">Approve</h4>
+                    <ThumbUpIcon style={{color: 'red'}} className='button-icon'/>
+                </div>
+                <div className='button button-2 ' onClick={() => Reject()} >
+                    <h4 className="button-text">Reject</h4>
+                    <ThumbDownAltIcon style={{color: 'red'}} className='button-icon'/>
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className='admin-users' >
             <h3>Requests</h3>
+            {
+                alert && 
+                <div className="fit" style={{padding: '10px'}} >
+                    <Alert severity='info' >{alert}</Alert>
+                </div>
+            }
             <div className="card">
-                <Table columns={columns} rows={data} />
+                <Table noHover={true} columns={columns} rows={requests} Action={Action} />
             </div>
             <h3 style={{marginTop: '40px'}} >All Wallets</h3>
             <div className="card">

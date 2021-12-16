@@ -1,3 +1,5 @@
+//delivery boys are managed here
+
 const jwt = require('jsonwebtoken');
 const driverModel = require('../model/deliveryBoyModel');
 

@@ -7,10 +7,9 @@ import {io} from 'socket.io-client';
 import Alert from '@mui/material/Alert';
 import { URL } from "../urls";
 import {getOrder, getOrders} from '../services/order';
-// import {socket} from '../services/socket';
+import {geolocated} from "react-geolocated";
 
-
-const Index = ({currentIndex, user, setUser}) => {
+const Index = ({currentIndex, user, setUser, coords, isGeolocationAvailable, isGeolocationEnabled}) => {
 
     const [currentOrder, setCurrentOrder] = useState(null);
 
@@ -18,9 +17,10 @@ const Index = ({currentIndex, user, setUser}) => {
     const [socket, setSocket] = useState(null);
     const [first, setFirst] = useState(true);
     const [_first, _setFirst] = useState(true);
-    const [geoID, setGeoID] = useState(null);
     const [allowed, setAllowed] = useState(true);
     const [alert, setAlert] = useState(null);
+    const [sending, setSending] = useState(false);
+    const [resServer, setResServer] = useState(null)
     const [alreadyOnline, setAlreadyOnline] = useState(false);
     const [hasVehicle, setHasVehicle] = useState(true);
     const [location, setLocation] = useState({
@@ -28,17 +28,11 @@ const Index = ({currentIndex, user, setUser}) => {
         lng: null
     });
 
-    const tabs = [
-        // {id: 2, component: SignIn, name: 'Sign In', to: '/' },
-        {id: 1, component: Map, name: 'On going', to: '/account' },
-        {id: 0, component: Orders, name: 'Orders', to: '/wallet' }
-    ];
-
     useEffect(() => {
         console.log('driverData', user);
         if(user && first){
             let vehicle = true;
-            if(!user.user.vehicle || user.user.vehicle === null){
+            if(!user.user.vehicle){
                 setHasVehicle(false);
                 vehicle = false;
                 setAlert('You have not been assigned a vehicle ask partner to assign you one')
@@ -47,47 +41,37 @@ const Index = ({currentIndex, user, setUser}) => {
             setFirst(false);
             if(vehicle){
                 console.log('setting socket');
+                if(!isGeolocationAvailable){setAlert(`Your device doesn't support geolocation`); setAllowed(false);}
+                if(!isGeolocationEnabled){setAlert(`Allow location from settings`); setAllowed(false);}
                 setSocket(io(URL,{
                     query: {token: user.auth_token}
                 }));
-                trackLocation();
+                // trackLocation();
             }
         }
 
-        if(!user || user === null){
+        if(!user){
             setFirst(true);
             if(socket !== null){
                 console.log('logout fired');
                 socket.disconnect();
                 setSocket(null);
             }
-            if(geoID !== null)
-                navigator.geolocation.clearWatch(geoID);
         }
     }, [user]);
-
-    const trackLocation = () => {
-        console.log('Setting navigator');
-        const id = navigator.geolocation.watchPosition(
-        data=> {
-            setLocation(
-            {
-                lat: data.coords.latitude,
-                lng: data.coords.longitude
-            }
-        )
-        },
-        error => {console.log(error); setAllowed(false); setAlert(error.message) }
-        );
-        setGeoID(id);
-    }
-
 
     useEffect(() => {
         if(socket){
             socket.emit('serverUpdateDriver', location);
         }
     }, [location]);
+
+    useEffect(() => {
+        if(coords?.latitude && coords?.longitude){
+            console.log('coords', `(${coords.latitude},${coords.longitude})`);
+            setLocation({lat: coords.latitude, lng: coords.longitude});
+        }
+    }, [coords]);
 
     const setSocketsAndFetchData = async () => {
         socket.emit('serverSaveDriver', {
@@ -115,6 +99,19 @@ const Index = ({currentIndex, user, setUser}) => {
             }
         });
 
+        socket.on('order-completed-response', (response) => {
+            setSending(false);
+            if(response.status === 200){
+                setCurrentOrder(null);
+                setResServer("Success");
+            }else{
+                setResServer("Error");
+            }
+        });
+        _getOrders();
+    }
+
+    async function _getOrders(){
         const data = await getOrders();
         if(data){
             checkForOngoingOrders(data);
@@ -126,6 +123,8 @@ const Index = ({currentIndex, user, setUser}) => {
         for (let i = 0; i < data.length; i++) {
             if (data[i].delivering === true){
                 setCurrentOrder(data[i]);
+                if(socket)
+                    socket.emit('ongoing order');
                 break;
             }
         }
@@ -156,10 +155,10 @@ const Index = ({currentIndex, user, setUser}) => {
                 (alreadyOnline || !hasVehicle)? <></>:
                 <>
                 {
-                    currentIndex === 1 && <Map socket={socket} location={location} currentOrder={currentOrder}/>
+                    currentIndex === 1 && <Map socket={socket} setResServer={setResServer} setSending={setSending} sending={sending} resServer={resServer} socket={socket} location={location} currentOrder={currentOrder}/>
                 }
                 {
-                    currentIndex === 0 && <Orders socket={socket} currentOrder={currentOrder} setCurrentOrder={setCurrentOrder} orders={orders} setOrders={setOrders}/>
+                    currentIndex === 0 && <Orders _getOrders={_getOrders()} socket={socket} currentOrder={currentOrder} setCurrentOrder={setCurrentOrder} orders={orders} setOrders={setOrders}/>
                 }
                 </> 
             }
@@ -167,4 +166,10 @@ const Index = ({currentIndex, user, setUser}) => {
     );
 };
 
-export default Index;
+export default geolocated({
+    positionOptions:{
+        enableHighAccuracy: true,
+    },
+    watchPosition: true,
+    userDecisionTimeout: 5000,
+})(Index);

@@ -19,7 +19,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import CategoryIcon from '@mui/icons-material/Category';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
-import { createOrder } from "../../../services/axios/order";
+import { createOrder, payOrder } from "../../../services/axios/order";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -28,15 +28,43 @@ import Button from '@mui/material/Button';
 import { getLocations } from "../../../services/axios/location";
 import GoogleMap from "../../../components/GoogleMap";
 import { getVendor } from "../../../services/axios/vendor";
+import {usePaystackPayment} from 'react-paystack';
 
-const PopUp = ({food, setFood, orderNow, orderPlaced, setOrderPlaced}) => {
-
+const PopUp = ({food, setFood, orderNow, orderPlaced, setOrderPlaced, finalizeOrder}) => {
+    
     const [qty, setQty] = useState(1);
     const [location, setLocation] = useState();
     const [_location, _setLocation] = useState();
     const [options, setOptions] = useState([]);
-    const [eLocation, setELocation] = useState([]);
+    const [eLocation, setELocation] = useState(['loading']);
     const [loading, setLoading] = useState(false);
+    
+    const config = {
+        reference: (new Date()).getTime().toString(),
+        email: "asokoroted@gmail.com",
+        amount: qty * food.food.price * 100,
+        publicKey: 'pk_test_5b3a1043319370366dc36d3883ed18a9778b83de',
+    };
+    
+    const bla = async () => {
+        setLoading(true);
+        const orderID = JSON.parse(sessionStorage.getItem('order-id-476'));
+        await finalizeOrder(orderID);
+    }
+    // you can call this function anything
+    const onSuccess = (reference) => {
+      // Implementation for whatever you want to do with reference and after success call.
+      bla();
+    };
+    
+    // you can call this function anything
+    const onClose = () => {
+        // implementation for  whatever you want to do when the Paystack dialog closed.
+        setOrderPlaced('There was some error');
+        setLoading(false);
+    }
+
+    const initializePayment = usePaystackPayment(config);
 
     const fetch = async () => {
         const data = await getLocations();
@@ -54,7 +82,16 @@ const PopUp = ({food, setFood, orderNow, orderPlaced, setOrderPlaced}) => {
         if(_location){
             setELocation(_location);
         }
-    }, [_location])
+    }, [_location]);
+
+    const handleSubmit = async (e) =>{
+        e.preventDefault();
+        const data = await orderNow(food, qty, eLocation, config.reference);
+        if(data){
+            sessionStorage.setItem('order-id-476', JSON.stringify(data));
+            initializePayment(onSuccess, onClose);
+        }
+    }
 
     return(
         <div className="card-container">
@@ -72,38 +109,36 @@ const PopUp = ({food, setFood, orderNow, orderPlaced, setOrderPlaced}) => {
                 }
                 {
                     !loading && <>
-                    <form onSubmit={() => {orderNow(food, qty, eLocation); setLoading(true)}}>
-
-                    <TextField value={qty} onChange={e => setQty(e.target.value)} id="outlined-basic" type='number' size='small' label={`How many ${food.food.name} you want to order?`} variant="outlined" />
-                    <FormControl fullWidth>
-                        <InputLabel required size='small' id="demo-simple-select-label">Your locations</InputLabel>
-                        <Select
-                        required
-                        labelId="demo-simple-select-label"
-                        size='small'
-                        id="demo-simple-select"
-                        value={location}
-                        label="Your locations"
-                        onChange={e => {setLocation(e.target.value); setELocation(e.target.value)}}
-                        >
-                            {
-                                options.map((option) => (
-                                    <MenuItem value={option.location} >{option.location.address}</MenuItem>
-                                    ))
-                                }
-                        </Select>
-                    </FormControl>
-                    {/* <Button variant='outlined' > Add new location </Button> */}
-                    <GoogleMap setLocation={_setLocation} eLocation={eLocation.latLng} />
-                    <span>Total: $ {qty * food.food.price}</span>
-                    <span>Will be delivered to: {eLocation?.address}</span>
-                    
-                    <TextField id="outlined-basic" type='number' size='small' label='Card Number (beta)' variant="outlined" />
-                    
-                    <div className="flex" style={{marginTop: '20px'}} >
-                        <Button variant='outlined' type='submit' >Confirm order</Button>
-                        <Button variant='outlined' onClick={() => setFood(null)} >Cancel</Button>
-                    </div>
+                    <form style={{display: 'flex', flexDirection: 'column', rowGap: '20px'}} onSubmit={(e) => handleSubmit(e)}>
+                        <div className="flex">
+                            <TextField style={{width: '150px'}} value={qty} onChange={e => setQty(e.target.value)} id="outlined-basic" type='number' size='small' label={`No. of ${food.food.name}s?`} variant="outlined" />
+                            <FormControl style={{maxWidth: '200px', minWidth: '200px'}} >
+                                <InputLabel required size='small' id="demo-simple-select-label">Your locations</InputLabel>
+                                <Select
+                                required
+                                labelId="demo-simple-select-label"
+                                size='small'
+                                id="demo-simple-select"
+                                value={location}
+                                label="Your locations"
+                                onChange={e => {setLocation(e.target.value); setELocation(e.target.value)}}
+                                >
+                                    {
+                                        options.map((option) => (
+                                            <MenuItem key={option._id} value={option.location} >{option.location.address}</MenuItem>
+                                            ))
+                                        }
+                                </Select>
+                            </FormControl>
+                        </div>
+                        {/* <Button variant='outlined' > Add new location </Button> */}
+                            <GoogleMap setLocation={_setLocation} eLocation={eLocation.latLng} />
+                        <div className="flex">
+                            <span>Total: $ {qty * food.food.price}</span>
+                            <span style={{maxWidth: '300px'}} >Will be delivered to: {eLocation?.address}</span>
+                        </div>
+                        <button type='submit'>Pay Now</button>
+                            <Button variant='outlined' onClick={() => setFood(null)} >Cancel</Button>
                     </form>
                 </>
             }
@@ -123,8 +158,8 @@ const Index = ({currentIndex, user}) => {
         {id: 6, component: Settings, name: 'Settings', to: '/settings' },
     ];
 
-    const [foods, setFoods] = useState([]);
-    const [value, setValue] = useState();
+    const [foods, setFoods] = useState([{name: 'loading'}]);
+    const [value, setValue] = useState({name: 'loading'});
     const [inputValue, setInputValue] = useState('');
     const [focused, setFocused] = useState(false);
     const [searching, setSearching] = useState(false);
@@ -136,6 +171,7 @@ const Index = ({currentIndex, user}) => {
         const data = await getAllFoods();
         if(data){
             setFoods(data);
+            setValue(data[0]);
             console.log(data);
         }
     }
@@ -157,10 +193,9 @@ const Index = ({currentIndex, user}) => {
         }
     }
 
-    const orderNow = async (food, qty, location) => {
+    const orderNow = async (food, qty, location, reference) => {
         const userData = JSON.parse(localStorage.getItem('userData'));
         const vendor = await getVendor(food.details.email);
-        console.log(food);
         const order = {
             vendor: food.details.email,
             user: userData.user.email,
@@ -168,12 +203,24 @@ const Index = ({currentIndex, user}) => {
             cost: food.food.price * qty,
             userLocation: location,
             products: {foodId: food.food, qty: qty},
+            paymentReferenceNo: reference
         };
         const data = await createOrder(order);
         if(data)
         {
-            setOrderPlaced('Order Placed')
-            console.log(data);
+            return data._id;
+        }
+        else{
+            setOrderPlaced('There was some error');
+            return null;
+        }
+    }
+    
+    const finalizeOrder = async (orderID) => {
+        const data = await payOrder (orderID);
+        if(data)
+        {
+            setOrderPlaced('Order Placed');
         }
         else{
             setOrderPlaced('There was some error');
@@ -224,7 +271,7 @@ const Index = ({currentIndex, user}) => {
                                     <div className="searched-foods">    
                                         {
                                             searchData?.map((food) => (
-                                                <div className="outer">
+                                                <div key={food._id} className="outer">
                                                     <div className="searched-food">
                                                         <div className="texts">
                                                             <span className='flex' ><FastfoodIcon/> {food.food.name}</span>
@@ -254,7 +301,7 @@ const Index = ({currentIndex, user}) => {
                             <div className="search-active"></div>
                         }
                         {
-                            foodId && <PopUp orderPlaced={orderPlaced} setOrderPlaced={setOrderPlaced} orderNow={orderNow} setFood={setFoodId} food = {foodId} />
+                            foodId && <PopUp setOrderPlaced={setOrderPlaced} orderPlaced={orderPlaced} finalizeOrder={finalizeOrder} setOrderPlaced={setOrderPlaced} orderNow={orderNow} setFood={setFoodId} food = {foodId} />
 
                         }
                         <tab.component user={user} />

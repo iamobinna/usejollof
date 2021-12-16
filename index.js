@@ -9,6 +9,7 @@ const io = require('socket.io')(server, {
 });
 let boys = {};
 const file1 = require('./src/sockets/file1')(io, boys);
+const file2 = require('./src/sockets/file2')(io, boys);
 const orderModel = require('./src/model/orderModel');
 const cors = require('cors');
 const path = require('path');
@@ -22,6 +23,8 @@ const orderRouter = require('./src/router/orderRouter.js');
 const locationRouter = require('./src/router/locationRouter.js');
 const vehicleRouter = require('./src/router/vehicleRouter.js');
 const deliveryBoyRouter = require('./src/router/deliveryBoyRouter.js');
+const walletRouter = require('./src/router/walletRouter.js');
+const adminWalletRouter = require('./src/router/adminWalletRouter.js');
 const mongoose = require('mongoose');
 const {toSearchNearestDeliveryBoy} = require('./src/sockets/deliveryAssigner');
 const DeliveryRouter = express.Router();
@@ -64,6 +67,8 @@ app.use('/category', categoryRouter);
 app.use('/food', foodRouter);
 app.use('/location', locationRouter);
 app.use('/vehicle', vehicleRouter);
+app.use('/wallet', walletRouter);
+app.use('/admin-wallet', adminWalletRouter);
 app.use('/deliveryboy', deliveryBoyRouter);
 app.use('/assign',DeliveryRouter );
 

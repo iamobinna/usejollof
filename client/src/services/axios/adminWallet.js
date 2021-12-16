@@ -1,12 +1,14 @@
 import {URL} from '../../urls';
 import axios from 'axios';
 
-export const createOrder = async (_data) => {
+export const getWallet = async (userID) => {
     try {
         const userData = JSON.parse(localStorage.getItem('userData'));
-        const {data} = await axios.post(`${URL}/order/create`, _data, {
+        const {data} = await axios.get(`${URL}/admin-wallet/get`, {
             headers:{
-                'auth-token': userData.auth_token
+                'auth-token': userData.auth_token,
+                'admin-pass': 'sahil1234',
+                'user-id' : userID? userID : userData.user._id
             }
         });
 
@@ -18,37 +20,13 @@ export const createOrder = async (_data) => {
     }
 }
 
-export const getOrders = async () => {
+export const updateWallet = async (wallet) => {
     try {
         const userData = JSON.parse(localStorage.getItem('userData'));
-        let headers = null;
-        if(userData.user.type === 'user')
-        {
-            headers = {
-                'auth-token': userData.auth_token,
-                'user-email' : userData.user.email,
-            }
-        }else{
-            headers = {
-                'auth-token': userData.auth_token,
-                'vendor-email' : userData.user.email,
-            }
-        }
-        const {data} = await axios.get(`${URL}/order/`, {headers});
-
-        console.log('data', data);
-        return data;
-    } catch (error) {
-        //account creation had some error
-        return null;
-    }
-}
-export const updateOrder = async (order) => {
-    try {
-        const userData = JSON.parse(localStorage.getItem('userData'));
-        const {data} = await axios.put(`${URL}/order/update`, order, {
+        const {data} = await axios.put(`${URL}/admin-wallet/update`, wallet, {
             headers:{
-                'auth-token': userData.auth_token
+                'auth-token': userData.auth_token,
+                'admin-pass': 'sahil1234'
             }
         });
 
@@ -60,13 +38,13 @@ export const updateOrder = async (order) => {
     }
 }
 
-export const payOrder = async (orderID) => {
+export const getWallets = async () => {
     try {
         const userData = JSON.parse(localStorage.getItem('userData'));
-        const {data} = await axios.get(`${URL}/order/pay`, {
+        const {data} = await axios.get(`${URL}/admin-wallet/`, {
             headers:{
                 'auth-token': userData.auth_token,
-                'order-id': orderID
+                'admin-pass': 'sahil1234'
             }
         });
 
@@ -77,3 +55,23 @@ export const payOrder = async (orderID) => {
         return null;
     }
 }
+
+export const getWalletRequests = async () => {
+    try {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        const {data} = await axios.get(`${URL}/admin-wallet/requests`, {
+            headers:{
+                'auth-token': userData.auth_token,
+                'admin-pass': 'sahil1234'
+            }
+        });
+
+        console.log('data', data);
+        return data;
+    } catch (error) {
+        //account creation had some error
+        return null;
+    }
+}
+
+

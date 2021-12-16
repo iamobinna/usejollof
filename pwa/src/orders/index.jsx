@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './styles/style.css';
 import DiningIcon from '@mui/icons-material/Dining';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
@@ -10,7 +10,12 @@ import Alert from '@mui/material/Alert';
 import { updateOrder } from '../services/order';
 
 
-const Index = ({orders, setOrders, currentOrder, setCurrentOrder, socket}) => {
+const Index = ({orders, setOrders, currentOrder, setCurrentOrder, socket, _getOrders}) => {
+
+    useEffect(() => {
+        _getOrders()
+    }, []);
+
 
     const open = (index) => {
         const isOpen = orders[index].open;
@@ -29,14 +34,15 @@ const Index = ({orders, setOrders, currentOrder, setCurrentOrder, socket}) => {
         setOrders(arr);
     }
 
-    const startOrder = (index) => {
+    const startOrder = async (index) => {
         if(currentOrder === null){
             //there are no orders
             setCurrentOrder(orders[index]);
-            updateOrder({...orders[index], delivering: true});
-            //remove driver from socket list
-            if(socket){
-                socket.emit('ongoing order');
+            if ( await updateOrder({...orders[index], delivering: true})){
+                //remove driver from socket list
+                if(socket){
+                    socket.emit('ongoing order');
+                }
             }
         }
     }

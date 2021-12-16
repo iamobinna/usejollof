@@ -48,7 +48,7 @@ const Index = ({columns, rows, clickHandler, customRows, noHover, Action, setRow
                             return (
                             <TableRow hover = {noHover? false : true} role="checkbox" tabIndex={-1} key={row.code} onClick={() => clickHandler && clickHandler(row._id, index)} >
                                 {columns.map((column) => {
-                                const value = row[column.id];
+                                let value = row[column.id];
                                 if(Action)
                                 {
                                     if(column.id === 'action')
@@ -58,6 +58,13 @@ const Index = ({columns, rows, clickHandler, customRows, noHover, Action, setRow
                                                 <Action id={row._id} index={index}/>
                                             </TableCell>
                                         )
+                                    }
+                                }
+                                if(typeof value === 'boolean'){
+                                    if(value === true){
+                                        value = 'true';
+                                    }else{
+                                        value = 'false';
                                     }
                                 }
                                 return (

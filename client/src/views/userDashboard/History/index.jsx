@@ -3,37 +3,8 @@ import Table from '../../../components/table';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShareIcon from '@mui/icons-material/Share';
 import CancelIcon from '@mui/icons-material/Cancel';
-import {useState} from 'react';
-
-const columns = [
-    {id: 'service', label: 'Service', minWidth: '160px'},
-    {id: 'spent', label: 'Spent'},
-    {id: 'deliveredAt', label: 'Delivered at', minWidth: '130px'},
-    {id: 'date', label: 'Date', minWidth: '110px'},
-    {id: 'serviceProvider', label: 'Service provider', minWidth: '160px'},
-];
-
-const rows = [
-    {id: 1, service: 'Food Delivery', spent: `${50} $`, deliveredAt: 'Office', date: new Date().toISOString().split('T')[0], serviceProvider: 'De Foodies'},
-    {id: 8, service: 'Package Delivery', spent: `${150} $`, deliveredAt: 'Office', date: new Date().toISOString().split('T')[0], serviceProvider: 'De Delivers'},
-    {id: 7, service: 'Food Delivery', spent: `${40} $`, deliveredAt: 'Office', date: new Date().toISOString().split('T')[0], serviceProvider: 'De Foodies'},
-    {id: 5, service: 'Food Delivery', spent: `${60} $`, deliveredAt: 'Office', date: new Date().toISOString().split('T')[0], serviceProvider: 'De Foodies'},
-    {id: 4, service: 'Package Delivery', spent: `${10} $`, deliveredAt: 'Office', date: new Date().toISOString().split('T')[0], serviceProvider: 'De Delivers'},
-    {id: 3, service: 'Food Delivery', spent: `${90} $`, deliveredAt: 'Office', date: new Date().toISOString().split('T')[0], serviceProvider: 'De Foodies'},
-    {id: 2, service: 'Food Delivery', spent: `${440} $`, deliveredAt: 'Office', date: new Date().toISOString().split('T')[0], serviceProvider: 'De Foodies'},
-]
-
-// const ActionButtons = () => {
-//     return(
-//         <div className="user-schedule-buttons">
-//             <div className='button button-hover'>
-//                 <div className="button-bg"></div>
-//                 <h4 className="button-text">Button</h4>
-//                 <DeleteIcon className='button-icon'/>
-//             </div>
-//         </div>
-//     )
-// }
+import {useState, useEffect} from 'react';
+import { getOrders } from '../../../services/axios/order';
 
 const PopUp = ({id, setID}) => {
 
@@ -100,8 +71,33 @@ const PopUp = ({id, setID}) => {
     )
 }
 
+const columns = [
+    {id: 'orderCreated', label: 'Order Created', minWidth: '160px'},
+    {id: 'cost', label: 'Total cost', minWidth: '160px'},
+    {id: 'paid', label: 'Paid', minWidth: '160px'},
+    {id: 'status', label: 'Order Status', minWidth: '160px'},
+    {id: 'delivering', label: 'Order Under Delivery', minWidth: '160px'},
+    {id: 'completed', label: 'Order Completed', minWidth: '160px'},
+    {id: 'paymentReferenceNo', label: 'Payment Reference Number', minWidth: '160px'},
+];
+
+
+
 const Index = ({customRows}) => {
     const [id, setID] = useState(null);
+    const [rows, setRows] = useState([]);
+
+    const fetchData = async () => {
+        const data = await getOrders();
+        if(data){
+            console.log('data', data);
+            setRows(data);
+        }
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     const clickHandler = (id) => {
         setID(id);

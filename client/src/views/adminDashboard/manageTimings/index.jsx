@@ -16,7 +16,7 @@ const Index = () => {
 
     return (
         <div>
-            <div className="card">
+            <div className="card fit">
                 <TimeSetter timings={timings} setTimings={setTimings} />
             </div>
         </div>

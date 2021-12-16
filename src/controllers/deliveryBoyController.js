@@ -1,5 +1,6 @@
 const  deliveryBoyModel = require('../model/deliveryBoyModel');
 const  vehicleModel = require('../model/vehicleModel');
+const distance = require('google-distance-matrix');
 const bcrypt = require( 'bcryptjs');
 const jwt = require( 'jsonwebtoken');
 
@@ -87,10 +88,6 @@ const  createAccount = async (req, res) => {
     
     try {
         const savedAccount = await account.save();
-        // const token = jwt.sign({_id: savedAccount._id}, process.env.TOKEN_SECRET);
-
-        // const objectToSend = {user: savedAccount, auth_token: token}
-
         res.status(200).send(savedAccount);
     } catch (error) {
         res.status(400).send(error);

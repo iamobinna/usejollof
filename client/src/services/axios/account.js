@@ -65,6 +65,22 @@ export const updateBrowser = async () => {
     }
 }
 
+export const getUser = async (id) => {
+    try {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        const {data} = await axios.get(`${URL}/account/get`, {
+            headers:{
+                'auth-token': userData.auth_token,
+                'user-id': id
+            }
+        });
+        return data;
+    } catch (error) {
+        //account creation had some error
+        return null;
+    }
+}
+
 export const signOut = () => {
     localStorage.removeItem('userData');
     window.dispatchEvent( new Event('sign-out'));

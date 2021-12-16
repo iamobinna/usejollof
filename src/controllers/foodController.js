@@ -19,7 +19,7 @@ const getFood = async (req, res) => {
 
 const getAllFoods = async (req, res) => {
     try {
-        const foods  = await foodModel.find();
+        const foods  = await foodModel.find({}, 'name');
         if(foods)
         {
             res.status(200).send(foods);
