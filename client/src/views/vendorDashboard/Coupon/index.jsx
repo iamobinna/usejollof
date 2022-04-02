@@ -240,14 +240,14 @@ const DealPopUp = ({add, setAdd}) => {
 
 const Index = () => {
 
-    const [coupons, setCoupons] = useState([
+    const [coupons] = useState([
         {name: 'Launch', code: 'CXD-478', deadline: '1-2-2012', discount: 5},
         {name: 'Launch', code: 'CXD-478', deadline: '1-2-2012', discount: 5},
         {name: 'Launch', code: 'CXD-478', deadline: '1-2-2012', discount: 5},
         {name: 'Launch', code: 'CXD-478', deadline: '1-2-2012', discount: 5},
     ]);
 
-    const [deals, setDeals] = useState([
+    const [deals] = useState([
         {name: 'Launch', price: 40, deadline: '1-2-2012', products: [12224, 151861, 5456431]},
         {name: 'Launch', price: 40, deadline: '1-2-2012', products: [12224, 151861, 5456431]},
         {name: 'Launch', price: 40, deadline: '1-2-2012', products: [12224, 151861, 5456431]},

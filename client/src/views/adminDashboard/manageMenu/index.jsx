@@ -10,6 +10,7 @@ const Index = () => {
 
     const [categories, setCategories] = useState();
     // const [change, setChange] = useState(false);
+    // eslint-disable-next-line
     const [first, setFirst] = useState(true);
     const [val, setVal] = useState('')
 

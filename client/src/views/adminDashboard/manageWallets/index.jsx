@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { getWallet, getWalletRequests, getWallets, updateWallet } from '../../../services/axios/adminWallet';
+import { getWalletRequests, getWallets, updateWallet } from '../../../services/axios/adminWallet';
 // import CancelIcon from '@mui/icons-material/Cancel';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import Alert from '@mui/material/Alert';
@@ -26,7 +26,7 @@ const Index = () => {
 
     const [requests, setRequests] = useState([]);
     const [rawRequests, setRawRequests] = useState([]);
-    const [rawWallets, setRawWallets] = useState([]);
+    const [setRawWallets] = useState([]);
     const [sending, setSending] = useState(false);
     const [alert, setAlert] = useState(null);
 
@@ -39,7 +39,7 @@ const Index = () => {
         {id: 'creditAmount', label: 'Credit Amount', minWidth: ''}
     ];
 
-    const [id, setID] = useState(null);
+    // const [setID] = useState(null);
 
     const [value, setValue] = useState('not selected');
     const [age, setAge] = useState('all');
@@ -78,13 +78,14 @@ const Index = () => {
             setRequests(arr);
         }
     }
-
-    const clickHandler = (id) => {
-        setID(id);
-    }
+// eslint-disab;e-next-line
+    // const clickHandler = (id) => {
+    //     setID(id);
+    // }
 
     useEffect(() => {
         fetch();
+         // eslint-disable-next-line
     }, []);
 
     useEffect(() => {

@@ -14,7 +14,7 @@ const Index = () => {
         {id: 'dropLocation', label: 'Drop Location', minWidth: ''},
     ];
 
-    const [orders, setOrders] = useState([
+    const [orders] = useState([
         {orderNo: '1244', item: 'Burger', customer: 'Obinna', provider: 'De Foodies', dateCreated: '12-4-2021', pickupLocation: 'Karachi', dropLocation: 'Multan'},
         {orderNo: '1244', item: 'Parcel', customer: 'Obinna', provider: 'De Foodies', dateCreated: '12-4-2021', pickupLocation: 'Karachi', dropLocation: 'Multan'},
         {orderNo: '1244', item: 'Burger', customer: 'Obinna', provider: 'De Foodies', dateCreated: '12-4-2021', pickupLocation: 'Karachi', dropLocation: 'Multan'},

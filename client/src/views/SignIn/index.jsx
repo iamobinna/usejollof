@@ -89,6 +89,62 @@ const Index = () => {
 
     return (
         <div className="signin-container">
+            <div className="login-animatons">
+                <div className="pizza two">
+                    <img src="https://fulloption.com.ng/wp-content/uploads/2020/07/buildyourownpizza_0-Copy.png" alt="#" />
+                </div>
+                <div className="burger three">
+                    <img src="https://www.qualityassurancemag.com/fileuploads/publications/29/issues/103585/articles/images/Impossible_Burger_fmt.png" alt="#" />
+                </div>
+                <div className="pizza three">
+                    <img src="https://fulloption.com.ng/wp-content/uploads/2020/07/buildyourownpizza_0-Copy.png" alt="#" />
+                </div>
+                <div className="burger four">
+                    <img src="https://www.qualityassurancemag.com/fileuploads/publications/29/issues/103585/articles/images/Impossible_Burger_fmt.png" alt="#" />
+                </div>
+                <div className="pizza four">
+                    <img src="https://fulloption.com.ng/wp-content/uploads/2020/07/buildyourownpizza_0-Copy.png" alt="#" />
+                </div>
+                <div className="burger five">
+                    <img src="https://www.qualityassurancemag.com/fileuploads/publications/29/issues/103585/articles/images/Impossible_Burger_fmt.png" alt="#" />
+                </div>
+                <div className="pizza five">
+                    <img src="https://fulloption.com.ng/wp-content/uploads/2020/07/buildyourownpizza_0-Copy.png" alt="#" />
+                </div>
+                <div className="burger six">
+                    <img src="https://www.qualityassurancemag.com/fileuploads/publications/29/issues/103585/articles/images/Impossible_Burger_fmt.png" alt="#" />
+                </div>
+                <div className="pizza six">
+                    <img src="https://fulloption.com.ng/wp-content/uploads/2020/07/buildyourownpizza_0-Copy.png" alt="#" />
+                </div>
+                <div className="burger seven">
+                    <img src="https://www.qualityassurancemag.com/fileuploads/publications/29/issues/103585/articles/images/Impossible_Burger_fmt.png" alt="#" />
+                </div>
+                <div className="pizza seven">
+                    <img src="https://fulloption.com.ng/wp-content/uploads/2020/07/buildyourownpizza_0-Copy.png" alt="#" />
+                </div>
+                <div className="burger eight">
+                    <img src="https://www.qualityassurancemag.com/fileuploads/publications/29/issues/103585/articles/images/Impossible_Burger_fmt.png" alt="#" />
+                </div>
+                <div className="pizza eight">
+                    <img src="https://fulloption.com.ng/wp-content/uploads/2020/07/buildyourownpizza_0-Copy.png" alt="#" />
+                </div>
+                <div className="burger nine">
+                    <img src="https://www.qualityassurancemag.com/fileuploads/publications/29/issues/103585/articles/images/Impossible_Burger_fmt.png" alt="#" />
+                </div>
+                <div className="pizza nine">
+                    <img src="https://fulloption.com.ng/wp-content/uploads/2020/07/buildyourownpizza_0-Copy.png" alt="#" />
+                </div>
+                <div className="burger ten">
+                    <img src="https://www.qualityassurancemag.com/fileuploads/publications/29/issues/103585/articles/images/Impossible_Burger_fmt.png" alt="#" />
+                </div>
+                <div className="pizza ten">
+                    <img src="https://fulloption.com.ng/wp-content/uploads/2020/07/buildyourownpizza_0-Copy.png" alt="#" />
+                </div>
+                <div className="burger two">
+                    <img src="https://www.qualityassurancemag.com/fileuploads/publications/29/issues/103585/articles/images/Impossible_Burger_fmt.png" alt="#" />
+                </div>
+            </div>
             <div className="alert-container">
                 {alert && (
                     <Alert severity="warning" style={{ marginBottom: "20px" }}>

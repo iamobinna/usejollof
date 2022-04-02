@@ -1,10 +1,8 @@
 import {useState, useEffect} from 'react';
 import './styles/style.css';
 import Table from '../../../components/table';
-import { getUpgradeRequests, getUpgradeRequestById, approveRequest, rejectRequest } from '../../../services/axios/request';
+import { getUpgradeRequests, getUpgradeRequestById, approveRequest} from '../../../services/axios/request';
 import GoogleMap from '../../../components/GoogleMap';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ShareIcon from '@mui/icons-material/Share';
 import CancelIcon from '@mui/icons-material/Cancel';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -24,6 +22,7 @@ const PopUp = ({id, setID, applications, setApplications}) => {
 
     useEffect(() => {
         fetch();
+    //eslint-disable-next-line
     },[])
 
     if(!id)

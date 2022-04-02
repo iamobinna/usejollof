@@ -5,7 +5,6 @@ import PlacesAutocomplete, {
   getLatLng,
 } from 'react-places-autocomplete';
 import './style.css'
-import TextField from '@mui/material/TextField';
 
 export class MapContainer extends Component {
   constructor(props) {

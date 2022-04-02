@@ -1,9 +1,8 @@
-import "./app.css";
+import "./App.css";
 import UserDashboard from './views/userDashboard';
 import VendorDashboard from './views/vendorDashboard';
 import PartnerDashboard from './views/partnerDashboard';
-import PWA from './views/pwa';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import { Route} from 'react-router-dom';
 import DateAdapter from '@mui/lab/AdapterMoment';
 import AdminDashboard from './views/adminDashboard';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';

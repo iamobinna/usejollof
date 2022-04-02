@@ -43,7 +43,6 @@ const PopUp = ({open, setOpen, addLocation, eLocation, setELocation, updateLocat
 const Index = ({user}) => {
 
     const [open, setOpen] = useState(false);
-    const [first, setFirst] = useState(true);
     const [eLocation, setELocation] = useState(null);
 
     const [locations, setLocations] = useState([]);

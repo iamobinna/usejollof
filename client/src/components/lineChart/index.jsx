@@ -8,7 +8,7 @@ const Index = ({dataValues, chartTitle, showFrom}) => {
         const limit = showFrom? showFrom : 7;
 
         let
-          arr = new Array(),
+          arr = new [](),
           dt = new Date(end),
           day = 0; 
       

@@ -67,6 +67,7 @@ export const getFoodsLike = async (name) => {
 export const deleteFood = async (id) => {
     try {
         const userData = JSON.parse(localStorage.getItem('userData'));
+        //eslint-disable-next-line
         const {data} = await axios.delete(`${URL}/food/delete`, {
             headers:{
                 'auth-token': userData.auth_token,

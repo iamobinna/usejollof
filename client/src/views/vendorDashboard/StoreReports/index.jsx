@@ -15,7 +15,7 @@ const Index = () => {
         {id: 'location', label: 'Location', minWidth: ''},
         {id: 'state', label: 'Order state', minWidth: ''},
     ];
-    const [rows, setRows] = useState([
+    const [rows] = useState([
         {id: 1, orderNumber: '12', item: 'Burger', location: 'Karachi', state: 'delivered'},
         {id: 2, orderNumber: '12', item: 'Burger', location: 'Karachi', state: 'rejected'},
         {id: 3, orderNumber: '12', item: 'Burger', location: 'Karachi', state: 'delivered'},
@@ -28,7 +28,7 @@ const Index = () => {
         {id: 'location', label: 'Location', minWidth: ''},
         {id: 'state', label: 'Order state', minWidth: ''},
     ];
-    const [rows1, setRows1] = useState([
+    const [rows1] = useState([
         {id: 1, orderNumber: '12', item: 'Burger', location: 'Karachi', state: 'delivered'},
         {id: 2, orderNumber: '12', item: 'Burger', location: 'Karachi', state: 'rejected'},
         {id: 3, orderNumber: '12', item: 'Burger', location: 'Karachi', state: 'delivered'},

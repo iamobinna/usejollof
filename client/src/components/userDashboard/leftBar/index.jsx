@@ -1,14 +1,11 @@
-import { useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import SettingsIcon from "@mui/icons-material/Settings";
-import ShareIcon from "@mui/icons-material/Share";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import HomeIcon from "@mui/icons-material/Home";
 import Tooltip from "@mui/material/Tooltip";
-import { openInAppLink } from "../../../services/openLinks";
 import { signOut } from "../../../services/axios/account";
 import LogoutIcon from '@mui/icons-material/Logout';
 import "./styles/style.css";

@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
-import { openInAppLink } from "../../../services/openLinks";
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import DriveEtaIcon from '@mui/icons-material/DriveEta';
-import LoginIcon from '@mui/icons-material/Login';
-// import { signOut } from "../../../services/axios/account";
 import "./styles/style.css";
 
 const Index = ({currentIndex, setCurrentIndex, user, setUser}) => {
@@ -15,7 +12,6 @@ const Index = ({currentIndex, setCurrentIndex, user, setUser}) => {
     const tabs = [
         {id: 0 , icon: ListAltIcon, name: "Orders", color: 'rgb(0, 158, 66)'},
         {id: 1 , icon: DriveEtaIcon, name: "Ongoing order", color: 'rgb(0, 140, 158)'},
-        // {id: 2 , icon: LoginIcon, name: "Sign in", color: 'rgb(233, 37, 2)'},
     ];
 
     const signOut = () => {

@@ -1,1 +1,119 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+/* No CSS */
+.shapes-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: absolute;
+  bottom: -40px;
+}
+.column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  position: absolute;
+  flex-direction: column;
+  left: -40px;
+}
+
+.shapes {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  animation: move 6s linear infinite;
+}
+.column .shapes {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 0px;
+  animation: left 6s linear infinite;
+}
+.ex {
+  background: none;
+  width: 30px;
+  border: none;
+  position: relative;
+  outline: none;
+}
+.ex:nth-child(1) {
+  animation-delay: 1.2s;
+
+}
+.ex:nth-child(2) {
+  animation-delay: 1.3s;
+}
+.ex:nth-child(3) {
+  animation-delay: .2s;
+}
+.ex:nth-child(1) {
+  animation-delay: .7s;
+}
+.shapes:nth-child(odd) {
+  animation-delay: .1s;
+}
+.shapes:nth-child(even) {
+  animation-delay: 1s;
+}
+
+.shapes .dot {
+  background: none;
+  border: none;
+  position: relative;
+  outline: none;
+}
+.ex span {
+  display: block;
+  height: 4px;
+  background-color: #ddd;
+  margin: 6px 0;
+  width: 30px;
+  position: relative;
+  transition: 0.3s linear;
+}
+
+.ex span:nth-child(1) {
+  transform: rotate(45deg);
+  top: 9px;
+}
+.ex span:nth-child(2) {
+  transform: rotate(-45deg);
+}
+
+.shapes .dot span {
+  display: block;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: 4px solid #ddd;
+  top: 0% !important;
+  left: 0% !important;
+  transition: 0.3s linear;
+  z-index: 1;
+  animation: move 5s linear infinite;
+}
+.column .dot span {
+  display: block;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: 4px solid #ddd;
+  top: 0% !important;
+  left: 0% !important;
+  transition: 0.3s linear;
+  z-index: 1;
+  animation: left 5s linear infinite;
+}
+
+@keyframes move {
+  100% {
+    transform: translateY(-110vh);
+  }
+}
+@keyframes left {
+  100% {
+    transform: translateX(110vh);
+  }
+}

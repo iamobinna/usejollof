@@ -11,7 +11,7 @@ const Index = () => {
         {id: 'ongoingOffers', label: 'On Going Offers', minWidth: ''},
     ];
 
-    const [offers, setOffers] = useState([
+    const [offers] = useState([
         {vendor: 'De-Foodies', email: 'defoodies@gmail.com', location: 'karachi', onGoingOffers: '2'},
         {vendor: 'De-Foodies', email: 'defoodies@gmail.com', location: 'karachi', onGoingOffers: '2'},
         {vendor: 'De-Foodies', email: 'defoodies@gmail.com', location: 'karachi', onGoingOffers: '2'},
@@ -28,7 +28,7 @@ const Index = () => {
         {id: 'code', label: 'Code', minWidth: ''},
     ];
 
-    const [promos, setPromos] = useState([
+    const [promos] = useState([
         {name: 'Opening', discount: '2%', priceReduction: '', onPurchase: '', code: 'ALO564'},
         {name: 'Opening', discount: '', priceReduction: '$ 15', onPurchase: '$ 30', code: 'ALO564'},
         {name: 'Opening', discount: '2%', priceReduction: '', onPurchase: '', code: 'ALO564'},

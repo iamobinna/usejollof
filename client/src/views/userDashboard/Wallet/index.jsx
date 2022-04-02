@@ -1,6 +1,5 @@
 import './styles/style.css';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import { createWallet, getWallet, addToWallet } from '../../../services/axios/wallet';
 import { useEffect, useState } from 'react';
 import Alert from '@mui/material/Alert';
@@ -75,7 +74,7 @@ const PopUp = ({setPopUp, setWallet, amount}) => {
 const Index = () => {
 
     const [amount, setAmount] = useState(10);
-    const [loading, setLoading] = useState(false);
+    const [loading] = useState(false);
     const [wallet, setWallet] = useState(null);
     // const [isAccepted, setIsAccepted] = useState(false);
     const [age, setAge] = useState('');

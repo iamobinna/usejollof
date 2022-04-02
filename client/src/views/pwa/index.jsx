@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import LeftBar from '../../components/deliveryDashboard/leftBar';
 import './styles/style.css';
 // import {BrowserRouter, Switch, Route} from 'react-router-dom';

@@ -1,6 +1,7 @@
 .user-dashboard-container {
   margin-left: 54px;
   background: #f6f6f6;
+  overflow: hidden;
 }
 
 .user-dashboard-main {

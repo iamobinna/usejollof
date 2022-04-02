@@ -1,8 +1,6 @@
-import { useState } from "react";
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import Tooltip from "@mui/material/Tooltip";
-import { openInAppLink } from "../../../services/openLinks";
 import LogoutIcon from '@mui/icons-material/Logout';
 import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
 import InsightsIcon from '@mui/icons-material/Insights';

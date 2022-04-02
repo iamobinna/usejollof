@@ -16,7 +16,7 @@ const Index = () => {
         {service: false, name: 'Sunday', to: '0', from: '0'},
     ]);
 
-    const [branches, setBranches] = useState([
+    const [branches] = useState([
         {
             name: 'De -Foodies',
             location: 'Karachi',

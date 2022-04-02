@@ -301,7 +301,7 @@ const Index = ({currentIndex, user}) => {
                             <div className="search-active"></div>
                         }
                         {
-                            foodId && <PopUp setOrderPlaced={setOrderPlaced} orderPlaced={orderPlaced} finalizeOrder={finalizeOrder} setOrderPlaced={setOrderPlaced} orderNow={orderNow} setFood={setFoodId} food = {foodId} />
+                            foodId && <PopUp setOrderPlaced={setOrderPlaced} orderPlaced={orderPlaced} finalizeOrder={finalizeOrder}  orderNow={orderNow} setFood={setFoodId} food = {foodId} />
 
                         }
                         <tab.component user={user} />

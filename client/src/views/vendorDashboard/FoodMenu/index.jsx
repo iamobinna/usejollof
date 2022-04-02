@@ -1,6 +1,5 @@
 import {useState, useRef, useEffect} from 'react';
 import './styles/style.css';
-import Burger from '../../../static/images/burger.jpeg';
 import ImageInContainer from '../../../components/imageInContainer';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DetailsIcon from '@mui/icons-material/Details';
@@ -38,6 +37,7 @@ const PopUp = ({id, setID, _deleteFood}) => {
 
     useEffect(() => {
         fetch();
+        //eslint-disable-next-line
     }, []);
 
     if(!id)

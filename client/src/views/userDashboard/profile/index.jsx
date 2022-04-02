@@ -1,6 +1,4 @@
 import './styles/style.css';
-import {useState} from 'react';
-import profilePic from '../../../static/images/profile.jpg';
 import ImageInContainer from  '../../../components/imageInContainer';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
@@ -15,7 +13,7 @@ import { URL } from '../../../urls';
 
 const Index = ({user}) => {
 
-    const [edit, setEdit] = useState(false);
+    
 
     return (
         <div className="user-profile">

@@ -22,6 +22,7 @@ const PopUp = ({data, setData, id, setID, rows, setRows}) => {
         {
             setAge(rows[id.index].status);
         }
+         // eslint-disable-next-line
     }, [id]);
     
     if(!id)

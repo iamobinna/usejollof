@@ -2,8 +2,6 @@ import './styles/style.css';
 import CommuteIcon from '@mui/icons-material/Commute';
 import Table from '../../../components/table';
 import { useState, useEffect, useRef } from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ShareIcon from '@mui/icons-material/Share';
 import CancelIcon from '@mui/icons-material/Cancel';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,7 +15,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Alert from '@mui/material/Alert';
-import { getVehicleByPartner, addVehicle, updateVehicle, removeVehicle, getVehicleByID } from '../../../services/axios/vehicle';
+import { getVehicleByPartner, addVehicle, updateVehicle, getVehicleByID } from '../../../services/axios/vehicle';
 import {createDeliveryBoy, deleteDeliveryBoy, getDeliveryBoy, getDeliveryBoys, updateDeliveryBoy} from '../../../services/axios/delivery';
 import avatar from '../../../static/images/avatar.jpg';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
@@ -86,6 +84,7 @@ const PopUp = ({id, setID, vehicles, setVehicles, fetchData}) => {
 
     useEffect(() => {
         fetch();
+         // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
@@ -93,6 +92,7 @@ const PopUp = ({id, setID, vehicles, setVehicles, fetchData}) => {
             return;
         }
         setChange(true);
+        // eslint-disable-next-line
     },[age]);
 
     const updateDriver = async () => {

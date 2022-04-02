@@ -1,10 +1,7 @@
-import { useState } from "react";
 import Tooltip from "@mui/material/Tooltip";
-import { openInAppLink } from "../../../services/openLinks";
 import LogoutIcon from '@mui/icons-material/Logout';
 import "./styles/style.css";
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import FoodBankIcon from '@mui/icons-material/FoodBank';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';

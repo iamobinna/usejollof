@@ -10,7 +10,6 @@ const Index = ({user, setUser}) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [sending, setSending] = useState('');
     const [alert, setAlert] = useState({
         type: '',
         msg: null

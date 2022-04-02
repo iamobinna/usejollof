@@ -23,7 +23,7 @@ const Index = () => {
     const [age, setAge] = useState('all');
     const [emails, setEmails] = useState([]);
 
-    const [users, setUsers] = useState([
+    const [users] = useState([
         {id: 0, name: 'Shah Fahad',location: 'Karachi' ,email: 'fahad@gmail.com', type: 'rider'},
         {id: 1, name: 'Shah Fahad',location: 'New York' ,email: 'saad@gmail.com', type: 'vendor'},
         {id: 2, name: 'Shah Fahad',location: 'Malir' ,email: 'naeem@gmail.com', type: 'vendor'},

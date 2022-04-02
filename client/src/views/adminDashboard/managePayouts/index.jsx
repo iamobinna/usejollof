@@ -13,7 +13,7 @@ const Index = () => {
         {id: 'requestedAmount', label: 'Requested Amount', minWidth: ''},
     ];
 
-    const [data, setData] = useState([
+    const [data] = useState([
         {name: 'Shah Fahad', email: 'fahad@gmail.com', location: 'Karachi', type: 'Rider', dateOfRequest: '7-7-2012', requestedAmount: '$ 50'},
         {name: 'Shah Fahad', email: 'fahad@gmail.com', location: 'Karachi', type: 'Rider', dateOfRequest: '7-7-2012', requestedAmount: '$ 50'},
         {name: 'Shah Fahad', email: 'fahad@gmail.com', location: 'Karachi', type: 'Rider', dateOfRequest: '7-7-2012', requestedAmount: '$ 50'},

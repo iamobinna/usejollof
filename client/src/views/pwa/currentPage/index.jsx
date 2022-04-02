@@ -3,7 +3,7 @@ import SignIn from '../signIn';
 import Map from '../maps';
 import Orders from '../orders';
 import './styles/style.css';
-import e from "cors";
+
 
 const Index = ({currentIndex, user, setUser}) => {
     const tabs = [
@@ -14,6 +14,7 @@ const Index = ({currentIndex, user, setUser}) => {
 
     useEffect(() => {
         console.log('driverData', user);
+         // eslint-disable-next-line
     }, []);
 
     if(!user || user === null){

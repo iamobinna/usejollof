@@ -1,4 +1,3 @@
-import { useState } from "react";
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -7,7 +6,6 @@ import AssessmentIcon from '@mui/icons-material/Assessment';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import Tooltip from "@mui/material/Tooltip";
-import { openInAppLink } from "../../../services/openLinks";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { signOut } from "../../../services/axios/account";
 import "./styles/style.css";
